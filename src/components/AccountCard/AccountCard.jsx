@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
 
 import { AppContext } from '../App/App'
-import * as actionTypes from '../App/actionTypes'
 import { deleteAccount, putAccount } from '../../services/account'
+import { postMoments } from '../../services/moment'
+import * as actionTypes from '../App/actionTypes'
 import './AccountCard.css'
 
 export const AccountCard = ({ account }) => {
@@ -53,6 +54,14 @@ export const AccountCard = ({ account }) => {
 
       const response = await putAccount(account.id, accountAttrs)
       const newAccount = response.data
+
+      const amount = accountAttrs.amount
+
+      await postMoments(account.id, {
+        amount,
+      })
+
+      newAccount.amount = amount
 
       appDispatch({
         type: actionTypes.PUT_ACCOUNT,
