@@ -18,12 +18,18 @@ const changeTotal = (newState) => {
 const initialState = {
   accounts: [],
   total: 0,
+  loading: false,
 }
 
 const reducer = (state, action) => {
   const newState = { ...state }
 
   switch (action.type) {
+    case actionTypes.SET_LOADING:
+      newState.loading = action.payload
+
+      return newState
+
     case actionTypes.SET_ACCOUNTS:
       newState.accounts = action.payload
 
@@ -73,6 +79,8 @@ function App() {
   useEffect(() => {
     ;(async () => {
       try {
+        appDispatch({ type: actionTypes.SET_LOADING, payload: true })
+
         const response = await getAllAccounts()
 
         const accounts = response.data
@@ -80,6 +88,8 @@ function App() {
         appDispatch({ type: actionTypes.SET_ACCOUNTS, payload: accounts })
       } catch (error) {
         console.log('App -> error', error)
+
+        appDispatch({ type: actionTypes.SET_LOADING, payload: false })
       }
     })()
   }, [])
@@ -87,18 +97,22 @@ function App() {
   return (
     <AppContext.Provider value={{ appState, appDispatch }}>
       <div className='App'>
-        {appState.accounts.length ? (
-          <>
-            <AddAccount />
-
-            <div className='accounts'>
-              {appState.accounts.map((r) => (
-                <AccountCard key={r.id} account={r} />
-              ))}
-            </div>
-          </>
-        ) : (
+        {appState.loading ? (
           <Spinner />
+        ) : (
+          <>
+            {appState.accounts.length > 0 && (
+              <>
+                <AddAccount />
+
+                <div className='accounts'>
+                  {appState.accounts.map((r) => (
+                    <AccountCard key={r.id} account={r} />
+                  ))}
+                </div>
+              </>
+            )}
+          </>
         )}
       </div>
     </AppContext.Provider>
