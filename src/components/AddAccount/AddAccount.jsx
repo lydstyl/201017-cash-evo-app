@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react'
 
-import { AccountContext } from '../App/App'
+import { AppContext } from '../App/App'
+import * as actionTypes from '../App/actionTypes'
 
 import './AddAccount.css'
 import { postAccount } from '../../services/account'
 
 export const AddAccount = () => {
-  const accountContext = useContext(AccountContext)
-  console.log('AddAccount -> accountContext', accountContext)
+  const appContext = useContext(AppContext)
 
   const [name, setName] = useState(
     `Account ${document.querySelectorAll('.account-card').length + 1}`
@@ -36,11 +36,12 @@ export const AddAccount = () => {
         const response = await postAccount(defaultAccount)
 
         const newAccount = response.data
-        console.log('handleClick -> newAccount', newAccount)
 
-        // dispatch here instead of reload
+        appContext.appDispatch({
+          type: actionTypes.POST_ACCOUNT,
+          payload: newAccount,
+        })
 
-        // window.location.reload()
         return false
       } catch (error) {
         console.log('AddAccount -> error', error)
