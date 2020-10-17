@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import logo from './logo.svg'
 import './App.css'
-import { getAllUsers } from './services/user'
+import { getAllUsers } from '../../services/user'
 
 function App() {
   const [response, setResponse] = useState({})
