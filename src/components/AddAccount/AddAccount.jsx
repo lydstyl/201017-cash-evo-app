@@ -7,12 +7,18 @@ export const AddAccount = () => {
   const handleClick = () => {
     ;(async () => {
       try {
-        const defaultAccount = { name: 'Account name' }
+        const defaultAccount = {
+          name: `Account ${
+            document.querySelectorAll('.account-card').length + 1
+          }`,
+        }
 
         const response = await postAccount(defaultAccount)
 
         console.log('handleClick -> response', response)
-        // setResponse(response.data)
+
+        window.location.reload()
+        return false
       } catch (error) {
         console.log('AddAccount -> error', error)
       }
