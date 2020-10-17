@@ -25,6 +25,8 @@ export const getAllAccounts = () => {
 export const postAccount = (data) => {
   const pathEnd = `/accounts`
 
+  const body = data
+
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(
@@ -35,7 +37,8 @@ export const postAccount = (data) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ name: 'BNP' }), // body data type must match "Content-Type" header
+
+          body: JSON.stringify(body), // body data type must match "Content-Type" header
         }
       )
 

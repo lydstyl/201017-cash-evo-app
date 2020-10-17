@@ -7,7 +7,9 @@ export const AddAccount = () => {
   const handleClick = () => {
     ;(async () => {
       try {
-        const response = await postAccount({ name: 'BNP' })
+        const defaultAccount = { name: 'Account name' }
+
+        const response = await postAccount(defaultAccount)
 
         console.log('handleClick -> response', response)
         // setResponse(response.data)
@@ -17,5 +19,9 @@ export const AddAccount = () => {
     })()
   }
 
-  return <button onClick={handleClick}>Ajouter un compte</button>
+  return (
+    <button className='post-account' onClick={handleClick}>
+      Ajouter un compte
+    </button>
+  )
 }
