@@ -21,3 +21,31 @@ export const getAllAccounts = () => {
     }
   })
 }
+
+export const postAccount = (data) => {
+  const pathEnd = `/accounts`
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(
+        `${scheme}://${authority}${pathBegin}${pathEnd}`,
+
+        {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name: 'BNP' }), // body data type must match "Content-Type" header
+        }
+      )
+
+      const data = await response.json()
+
+      resolve(data)
+    } catch (error) {
+      console.log('getAllAccounts -> error', error)
+
+      reject(error)
+    }
+  })
+}
