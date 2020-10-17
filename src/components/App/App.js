@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from 'react'
+import React, { useReducer, useEffect } from 'react'
 
 import './App.css'
 import { getAllAccounts } from '../../services/account'
@@ -15,28 +15,37 @@ const initialState = {
 }
 
 const reducer = (state, action) => {
+  const newState = { ...state }
+
   switch (action.type) {
+    case actionTypes.SET_ACCOUNTS:
+      newState.accounts = action.payload
+      return newState
+
     case actionTypes.POST_ACCOUNT:
-      return { ...state, accounts: state.accounts.push(action.payload) }
+      newState.accounts.push(action.payload)
+
+      return newState
 
     default:
       return state
   }
 }
 
-export const AccountContext = React.createContext()
+export const AppContext = React.createContext()
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState)
-
-  const [response, setResponse] = useState(null)
+  const [appState, appDispatch] = useReducer(reducer, initialState)
+  console.log('App -> appState', appState)
 
   useEffect(() => {
     ;(async () => {
       try {
         const response = await getAllAccounts()
 
-        setResponse(response.data)
+        const accounts = response.data
+
+        appDispatch({ type: actionTypes.SET_ACCOUNTS, payload: accounts })
       } catch (error) {
         console.log('App -> error', error)
       }
@@ -44,20 +53,14 @@ function App() {
   }, [])
 
   return (
-    <AccountContext.Provider
-      value={{ accountState: state, countDispatch: dispatch }}
-    >
+    <AppContext.Provider value={{ appState, appDispatch }}>
       <div className='App'>
-        {response ? (
+        {appState.accounts.length ? (
           <>
             <AddAccount />
 
             <div className='accounts'>
-              {/* <pre style={{ textAlign: 'left' }}>
-              {JSON.stringify(response, null, 4)}
-            </pre> */}
-
-              {response.map((r) => (
+              {appState.accounts.map((r) => (
                 <AccountCard key={r.id} account={r} />
               ))}
             </div>
@@ -66,7 +69,7 @@ function App() {
           <Spinner />
         )}
       </div>
-    </AccountContext.Provider>
+    </AppContext.Provider>
   )
 }
 

@@ -1,1 +1,2 @@
+export const SET_ACCOUNTS = 'SET_ACCOUNTS'
 export const POST_ACCOUNT = 'POST_ACCOUNT'
