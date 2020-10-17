@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
-import logo from './logo.svg'
 import './App.css'
 import { getAllUsers } from '../../services/user'
+
+import { Spinner } from '../Spinner/Spinner'
 
 function App() {
   const [response, setResponse] = useState({})
@@ -28,7 +29,7 @@ function App() {
           </pre>
         )}
 
-        <img src={logo} className='App-logo' alt='logo' />
+        {/* <Spinner /> */}
       </header>
     </div>
   )
