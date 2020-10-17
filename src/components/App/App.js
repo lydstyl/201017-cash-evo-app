@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
 import './App.css'
-import { getAllUsers } from '../../services/user'
+import { getAllAccounts } from '../../services/account'
 
 import { Spinner } from '../Spinner/Spinner'
+import { AccountCard } from '../AccountCard/AccountCard'
 
 function App() {
   const [response, setResponse] = useState(null)
@@ -11,9 +12,9 @@ function App() {
   useEffect(() => {
     ;(async () => {
       try {
-        const data = await getAllUsers()
+        const response = await getAllAccounts()
 
-        setResponse(data)
+        setResponse(response.data)
       } catch (error) {
         console.log('App -> error', error)
       }
@@ -24,9 +25,15 @@ function App() {
     <div className='App'>
       <header className='App-header'>
         {response ? (
-          <pre style={{ textAlign: 'left' }}>
-            {JSON.stringify(response, null, 4)}
-          </pre>
+          <div class='accounts'>
+            {/* <pre style={{ textAlign: 'left' }}>
+              {JSON.stringify(response, null, 4)}
+            </pre> */}
+
+            {response.map((r) => (
+              <AccountCard key={r.id} account={r} />
+            ))}
+          </div>
         ) : (
           <Spinner />
         )}
