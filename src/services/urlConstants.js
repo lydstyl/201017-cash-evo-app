@@ -1,5 +1,5 @@
 export const UrlConstants = {
-  scheme: 'https',
-  authority: 'cash-evo-api.herokuapp.com', // or host here
-  pathBegin: '/api/v1',
+  scheme: process.env.REACT_APP_URL_SCHEME,
+  authority: process.env.REACT_APP_URL_AUTHORITY, // or host here
+  pathBegin: process.env.REACT_APP_URL_PATH_BEGIN,
 }

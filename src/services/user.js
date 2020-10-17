@@ -15,7 +15,7 @@ export const getAllUsers = () => {
 
       resolve(data)
     } catch (error) {
-      console.log('App -> error', error)
+      console.log('getAllUsers -> error', error)
 
       reject(error)
     }
