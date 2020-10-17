@@ -7,10 +7,13 @@ import './AccountCard.css'
 
 export const AccountCard = ({ account }) => {
   const appContext = useContext(AppContext)
+
   const [accountAttrs, setAccountAttrs] = useState({
     name: account.name,
     amount: account.amount | 0,
   })
+
+  const [initialName] = useState(account.name)
 
   const handleDelete = async () => {
     try {
@@ -65,7 +68,10 @@ export const AccountCard = ({ account }) => {
         step='0.01'
       />
 
-      <button onClick={handleSave}>Sauver</button>
+      {initialName !== accountAttrs.name && (
+        <button onClick={handleSave}>Sauver</button>
+      )}
+
       <button onClick={handleDelete}>Supprimer</button>
     </div>
   )

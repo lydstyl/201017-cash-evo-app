@@ -49,7 +49,7 @@ export const AddAccount = () => {
   return (
     <div className='post-account'>
       <div className='field'>
-        <label htmlFor='name'>Nom du compte</label>
+        <label htmlFor='name'>Nom du compte à ajouter</label>
 
         <input
           onChange={handleChange}
@@ -58,6 +58,12 @@ export const AddAccount = () => {
           type='text'
           placeholder='Compte x'
         />
+
+        {name && (
+          <button className='post-account' onClick={handleClick}>
+            Ajouter
+          </button>
+        )}
       </div>
 
       {/* <div className='field'>
@@ -72,10 +78,6 @@ export const AddAccount = () => {
           step='0.01'
         />
       </div> */}
-
-      <button className='post-account' onClick={handleClick}>
-        Ajouter un compte
-      </button>
     </div>
   )
 }
