@@ -6,7 +6,7 @@ import { getAllUsers } from '../../services/user'
 import { Spinner } from '../Spinner/Spinner'
 
 function App() {
-  const [response, setResponse] = useState({})
+  const [response, setResponse] = useState(null)
 
   useEffect(() => {
     ;(async () => {
@@ -23,13 +23,13 @@ function App() {
   return (
     <div className='App'>
       <header className='App-header'>
-        {response && (
+        {response ? (
           <pre style={{ textAlign: 'left' }}>
             {JSON.stringify(response, null, 4)}
           </pre>
+        ) : (
+          <Spinner />
         )}
-
-        {/* <Spinner /> */}
       </header>
     </div>
   )
