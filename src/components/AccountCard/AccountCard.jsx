@@ -10,10 +10,12 @@ export const AccountCard = ({ account }) => {
   const appContext = useContext(AppContext)
   const { appDispatch } = appContext
 
-  const [accountAttrs, setAccountAttrs] = useState({
+  const initialAttrs = {
     name: account.name,
-    amount: account.amount | 0,
-  })
+    amount: +account.amount || 0,
+  }
+
+  const [accountAttrs, setAccountAttrs] = useState(initialAttrs)
 
   const initialName = account.name
   const initialAmount = parseFloat(account.amount)
