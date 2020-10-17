@@ -9,6 +9,12 @@ import { AccountCard } from '../AccountCard/AccountCard'
 
 import * as actionTypes from './actionTypes'
 
+const changeTotal = (newState) => {
+  const newTotal = 0
+
+  return newTotal
+}
+
 const initialState = {
   accounts: [],
   total: 0,
@@ -20,19 +26,38 @@ const reducer = (state, action) => {
   switch (action.type) {
     case actionTypes.SET_ACCOUNTS:
       newState.accounts = action.payload
-      // change total
+
+      newState.total = changeTotal(newState)
+
       return newState
 
     case actionTypes.POST_ACCOUNT:
       newState.accounts.push(action.payload)
-      // change total
+
+      newState.total = changeTotal(newState)
+
+      return newState
+
+    case actionTypes.PUT_ACCOUNT:
+      newState.accounts = newState.accounts.map((a) => {
+        if (a.id === action.payload.id) {
+          return { ...a, ...action.payload }
+        }
+
+        return a
+      })
+
+      newState.total = changeTotal(newState)
+
       return newState
 
     case actionTypes.DELETE_ACCOUNT:
       newState.accounts = newState.accounts.filter(
         (a) => a.id !== action.payload
       )
-      // change total
+
+      newState.total = changeTotal(newState)
+
       return newState
 
     default:
