@@ -1,0 +1,1 @@
+export const POST_ACCOUNT = 'POST_ACCOUNT'
