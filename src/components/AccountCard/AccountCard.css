@@ -1,3 +1,12 @@
 .account-card {
   margin-bottom: 20px;
 }
+
+.account-card input,
+.account-card button {
+  margin: 8px 8px 8px 0;
+}
+
+.account-card input:first-child {
+  margin-right: 0;
+}
