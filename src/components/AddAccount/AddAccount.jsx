@@ -25,28 +25,24 @@ export const AddAccount = () => {
     }
   }
 
-  const handleClick = () => {
-    ;(async () => {
-      try {
-        const defaultAccount = {
-          name,
-          amount,
-        }
-
-        const response = await postAccount(defaultAccount)
-
-        const newAccount = response.data
-
-        appContext.appDispatch({
-          type: actionTypes.POST_ACCOUNT,
-          payload: newAccount,
-        })
-
-        return false
-      } catch (error) {
-        console.log('AddAccount -> error', error)
+  const handleClick = async () => {
+    try {
+      const defaultAccount = {
+        name,
+        amount,
       }
-    })()
+
+      const response = await postAccount(defaultAccount)
+
+      const newAccount = response.data
+
+      appContext.appDispatch({
+        type: actionTypes.POST_ACCOUNT,
+        payload: newAccount,
+      })
+    } catch (error) {
+      console.log('handleClick -> error', error)
+    }
   }
 
   return (
@@ -63,7 +59,7 @@ export const AddAccount = () => {
         />
       </div>
 
-      <div className='field'>
+      {/* <div className='field'>
         <label htmlFor='amount'>Montant</label>
 
         <input
@@ -74,7 +70,7 @@ export const AddAccount = () => {
           placeholder='100'
           step='0.01'
         />
-      </div>
+      </div> */}
 
       <button className='post-account' onClick={handleClick}>
         Ajouter un compte

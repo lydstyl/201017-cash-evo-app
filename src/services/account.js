@@ -52,3 +52,27 @@ export const postAccount = (data) => {
     }
   })
 }
+
+export const deleteAccount = (accountId) => {
+  const pathEnd = `/accounts/${accountId}`
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(
+        `${scheme}://${authority}${pathBegin}${pathEnd}`,
+
+        {
+          method: 'DELETE',
+        }
+      )
+
+      const data = await response.json()
+
+      resolve(data)
+    } catch (error) {
+      console.log('getAllAccounts -> error', error)
+
+      reject(error)
+    }
+  })
+}

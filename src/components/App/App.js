@@ -20,11 +20,19 @@ const reducer = (state, action) => {
   switch (action.type) {
     case actionTypes.SET_ACCOUNTS:
       newState.accounts = action.payload
+      // change total
       return newState
 
     case actionTypes.POST_ACCOUNT:
       newState.accounts.push(action.payload)
+      // change total
+      return newState
 
+    case actionTypes.DELETE_ACCOUNT:
+      newState.accounts = newState.accounts.filter(
+        (a) => a.id !== action.payload
+      )
+      // change total
       return newState
 
     default:
@@ -36,7 +44,6 @@ export const AppContext = React.createContext()
 
 function App() {
   const [appState, appDispatch] = useReducer(reducer, initialState)
-  console.log('App -> appState', appState)
 
   useEffect(() => {
     ;(async () => {
