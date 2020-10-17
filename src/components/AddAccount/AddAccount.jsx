@@ -9,9 +9,7 @@ import { postAccount } from '../../services/account'
 export const AddAccount = () => {
   const appContext = useContext(AppContext)
 
-  const [name, setName] = useState(
-    `Account ${document.querySelectorAll('.account-card').length + 1}`
-  )
+  const [name, setName] = useState(``)
 
   const [amount, setAmount] = useState(100)
 
@@ -35,6 +33,9 @@ export const AddAccount = () => {
       const response = await postAccount(defaultAccount)
 
       const newAccount = response.data
+
+      // Clear input
+      setName('')
 
       appContext.appDispatch({
         type: actionTypes.POST_ACCOUNT,

@@ -76,3 +76,32 @@ export const deleteAccount = (accountId) => {
     }
   })
 }
+
+export const putAccount = (accountId, account) => {
+  const pathEnd = `/accounts/${accountId}`
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(
+        `${scheme}://${authority}${pathBegin}${pathEnd}`,
+
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+
+          body: JSON.stringify(account),
+        }
+      )
+
+      const data = await response.json()
+
+      resolve(data)
+    } catch (error) {
+      console.log('getAllAccounts -> error', error)
+
+      reject(error)
+    }
+  })
+}
