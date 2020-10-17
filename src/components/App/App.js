@@ -15,6 +15,16 @@ const changeTotal = (newState) => {
   return newTotal
 }
 
+const calculateTotal = (accounts) => {
+  let total = accounts.reduce((accumulator, currentValue) => {
+    const amount = +currentValue.amount
+
+    return accumulator + amount
+  }, 0)
+
+  return Math.round(total * 100) / 100
+}
+
 const initialState = {
   accounts: [],
   total: 0,
@@ -31,11 +41,12 @@ const reducer = (state, action) => {
       return newState
 
     case actionTypes.SET_ACCOUNTS:
-      newState.accounts = action.payload
+      newState.accounts = action.payload.map((a) => {
+        a.amount = +a.amount
+        return a
+      })
 
       newState.total = changeTotal(newState)
-
-      newState.loading = false
 
       return newState
 
@@ -74,6 +85,13 @@ const reducer = (state, action) => {
 
       return newState
 
+    case actionTypes.SET_TOTAL:
+      newState.total = action.payload
+
+      newState.loading = false
+
+      return newState
+
     default:
       return state
   }
@@ -93,7 +111,11 @@ function App() {
 
         const accounts = response.data
 
+        const total = calculateTotal(accounts)
+
         appDispatch({ type: actionTypes.SET_ACCOUNTS, payload: accounts })
+
+        appDispatch({ type: actionTypes.SET_TOTAL, payload: total })
       } catch (error) {
         console.log('App -> error', error)
 
@@ -101,6 +123,8 @@ function App() {
       }
     })()
   }, [])
+
+  console.log('App -> appState.accounts', appState.accounts)
 
   return (
     <AppContext.Provider value={{ appState, appDispatch }}>
@@ -112,6 +136,8 @@ function App() {
             {appState.accounts.length > 0 && (
               <>
                 <AddAccount />
+
+                <h1>Total : {appState.total}</h1>
 
                 <div className='accounts'>
                   {appState.accounts.map((r) => (
