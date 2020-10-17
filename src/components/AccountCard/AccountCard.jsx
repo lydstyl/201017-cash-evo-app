@@ -7,6 +7,7 @@ import './AccountCard.css'
 
 export const AccountCard = ({ account }) => {
   const appContext = useContext(AppContext)
+  const { appDispatch } = appContext
 
   const [accountAttrs, setAccountAttrs] = useState({
     name: account.name,
@@ -18,14 +19,18 @@ export const AccountCard = ({ account }) => {
 
   const handleDelete = async () => {
     try {
+      appDispatch({ type: actionTypes.SET_LOADING, payload: true })
+
       await deleteAccount(account.id)
 
-      appContext.appDispatch({
+      appDispatch({
         type: actionTypes.DELETE_ACCOUNT,
         payload: account.id,
       })
     } catch (error) {
       console.log('handleDelete -> error', error)
+
+      appDispatch({ type: actionTypes.SET_LOADING, payload: false })
     }
   }
 
@@ -44,15 +49,19 @@ export const AccountCard = ({ account }) => {
 
   const handleSave = async (evt) => {
     try {
+      appDispatch({ type: actionTypes.SET_LOADING, payload: true })
+
       const response = await putAccount(account.id, accountAttrs)
       const newAccount = response.data
 
-      appContext.appDispatch({
+      appDispatch({
         type: actionTypes.PUT_ACCOUNT,
         payload: newAccount,
       })
     } catch (error) {
       console.log('handleChange -> error', error)
+
+      appDispatch({ type: actionTypes.SET_LOADING, payload: false })
     }
   }
 

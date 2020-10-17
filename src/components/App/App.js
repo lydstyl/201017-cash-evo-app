@@ -35,12 +35,16 @@ const reducer = (state, action) => {
 
       newState.total = changeTotal(newState)
 
+      newState.loading = false
+
       return newState
 
     case actionTypes.POST_ACCOUNT:
       newState.accounts.push(action.payload)
 
       newState.total = changeTotal(newState)
+
+      newState.loading = false
 
       return newState
 
@@ -55,6 +59,8 @@ const reducer = (state, action) => {
 
       newState.total = changeTotal(newState)
 
+      newState.loading = false
+
       return newState
 
     case actionTypes.DELETE_ACCOUNT:
@@ -63,6 +69,8 @@ const reducer = (state, action) => {
       )
 
       newState.total = changeTotal(newState)
+
+      newState.loading = false
 
       return newState
 
@@ -86,8 +94,6 @@ function App() {
         const accounts = response.data
 
         appDispatch({ type: actionTypes.SET_ACCOUNTS, payload: accounts })
-
-        appDispatch({ type: actionTypes.SET_LOADING, payload: false })
       } catch (error) {
         console.log('App -> error', error)
 
