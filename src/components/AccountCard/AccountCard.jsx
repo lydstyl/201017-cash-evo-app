@@ -13,7 +13,8 @@ export const AccountCard = ({ account }) => {
     amount: account.amount | 0,
   })
 
-  const [initialName] = useState(account.name)
+  const initialName = account.name
+  const initialAmount = parseFloat(account.amount)
 
   const handleDelete = async () => {
     try {
@@ -31,7 +32,12 @@ export const AccountCard = ({ account }) => {
   const handleChange = async (evt) => {
     const newAccountAttrs = { ...accountAttrs }
 
-    newAccountAttrs[evt.target.name] = evt.target.value
+    let value = evt.target.value
+    if (evt.target.name === 'amount') {
+      value = parseFloat(value)
+    }
+
+    newAccountAttrs[evt.target.name] = value
 
     setAccountAttrs(newAccountAttrs)
   }
@@ -68,7 +74,8 @@ export const AccountCard = ({ account }) => {
         step='0.01'
       />
 
-      {initialName !== accountAttrs.name && (
+      {(initialName !== accountAttrs.name ||
+        initialAmount !== accountAttrs.amount) && (
         <button onClick={handleSave}>Sauver</button>
       )}
 
