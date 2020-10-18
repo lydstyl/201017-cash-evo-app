@@ -34,6 +34,10 @@ export const AddAccount = () => {
 
       const newAccount = response.data
 
+      if (!newAccount.moments) {
+        newAccount.moments = []
+      }
+
       // Clear input
       setName('')
 
