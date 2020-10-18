@@ -10,6 +10,7 @@ import { AddAccount } from '../AddAccount/AddAccount'
 import { AccountCard } from '../AccountCard/AccountCard'
 import { Nav } from '../Nav/Nav'
 import { AccountDetail } from '../AccountDetail/AccountDetail'
+import { MainChart } from '../MainChart/MainChart'
 
 export const AppContext = React.createContext()
 
@@ -44,6 +45,10 @@ function App() {
         <Switch>
           <Route path='/account/:id/detail'>
             <AccountDetail />
+          </Route>
+
+          <Route path='/main-chart'>
+            <MainChart />
           </Route>
 
           <Route path='/'>
