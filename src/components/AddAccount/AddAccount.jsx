@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react'
 
-import { AppContext } from '../App/App'
+import { AppContext } from '../AppContextProvider/AppContextProvider'
 import * as actionTypes from '../App/actionTypes'
+import { postAccount } from '../../services/account'
 
 import './AddAccount.css'
-import { postAccount } from '../../services/account'
 
 export const AddAccount = () => {
   const appContext = useContext(AppContext)

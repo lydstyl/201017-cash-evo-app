@@ -1,9 +1,12 @@
-import React from 'react'
-import { Line } from 'react-chartjs-2'
+import React, { useContext } from 'react'
 
+import { AppContext } from '../AppContextProvider/AppContextProvider'
+import { Line } from 'react-chartjs-2'
 import { options } from '../../utils/chartsOptions'
 
 export const MainChart = () => {
+  const appContext = useContext(AppContext)
+
   const data = {
     datasets: [
       {
@@ -61,3 +64,7 @@ export const MainChart = () => {
     </div>
   )
 }
+
+// se connectrer chopseer les doinnees
+
+// maper les données pour le chart

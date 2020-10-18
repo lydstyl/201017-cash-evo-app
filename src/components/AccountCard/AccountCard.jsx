@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { AppContext } from '../App/App'
+import { AppContext } from '../AppContextProvider/AppContextProvider'
 import { deleteAccount, putAccount } from '../../services/account'
 import { postMoments } from '../../services/moment'
 import * as actionTypes from '../App/actionTypes'
+
 import './AccountCard.css'
 
 export const AccountCard = ({ account }) => {
@@ -79,31 +80,37 @@ export const AccountCard = ({ account }) => {
 
   return (
     <div className='account-card'>
-      <input
-        value={accountAttrs.name}
-        onChange={handleChange}
-        name='name'
-        className='account-name'
-        type='text'
-      />
+      <div className='head'>
+        <input
+          value={accountAttrs.name}
+          onChange={handleChange}
+          name='name'
+          className='account-name'
+          type='text'
+        />
 
-      <input
-        value={accountAttrs.amount}
-        onChange={handleChange}
-        name='amount'
-        className='account-amount'
-        type='number'
-        step='0.01'
-      />
+        <input
+          value={accountAttrs.amount}
+          onChange={handleChange}
+          name='amount'
+          className='account-amount'
+          type='number'
+          step='0.01'
+        />
+      </div>
 
-      <Link to={`/account/${account.id}/detail`}>Détail</Link>
+      <div className='body'></div>
 
-      {(initialName !== accountAttrs.name ||
-        initialAmount !== accountAttrs.amount) && (
-        <button onClick={handleSave}>Sauver</button>
-      )}
+      <div className='footer'>
+        <Link to={`/account/${account.id}/detail`}>Détail</Link>
 
-      <button onClick={handleDelete}>Supprimer</button>
+        {(initialName !== accountAttrs.name ||
+          initialAmount !== accountAttrs.amount) && (
+          <button onClick={handleSave}>Sauver</button>
+        )}
+
+        <button onClick={handleDelete}>Supprimer</button>
+      </div>
     </div>
   )
 }

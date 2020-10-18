@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import dayjs from 'dayjs'
 import { Line } from 'react-chartjs-2'
 
-import { AppContext } from '../App/App'
+import { AppContext } from '../AppContextProvider/AppContextProvider'
 import { dateFormat, options } from '../../utils/chartsOptions'
 
 export const AccountDetail = () => {
@@ -56,7 +56,6 @@ export const AccountDetail = () => {
   return (
     <div>
       {account && <h2>{account.name}</h2>}
-
       <Line data={chartData} options={options} />
     </div>
   )
