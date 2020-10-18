@@ -66,7 +66,7 @@ export const AccountDetail = () => {
 
   return (
     <div>
-      {account && <h1>{account.name}</h1>}
+      {account && <h2>{account.name}</h2>}
 
       <Line data={chartData} />
 

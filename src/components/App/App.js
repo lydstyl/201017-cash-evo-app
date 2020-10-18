@@ -61,7 +61,7 @@ function App() {
                     <>
                       <AddAccount />
 
-                      <h1>Total : {appState.total}</h1>
+                      <h2>Total : {appState.total}</h2>
 
                       <div className='accounts'>
                         {appState.accounts.map((r) => (
