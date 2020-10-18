@@ -2,8 +2,10 @@ dependencies:
   '@testing-library/jest-dom': 4.2.4
   '@testing-library/react': 9.5.0_react-dom@16.14.0+react@16.14.0
   '@testing-library/user-event': 7.2.1
+  chart.js: 2.9.3
   dayjs: 1.9.3
   react: 16.14.0
+  react-chartjs-2: 2.10.0_89404dcb5889c639bd4290c0079ad1c8
   react-dom: 16.14.0_react@16.14.0
   react-router-dom: 5.2.0_react@16.14.0
   react-scripts: 3.4.3
@@ -3044,6 +3046,26 @@ packages:
     dev: false
     resolution:
       integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
+  /chart.js/2.9.3:
+    dependencies:
+      chartjs-color: 2.4.1
+      moment: 2.29.1
+    dev: false
+    resolution:
+      integrity: sha512-+2jlOobSk52c1VU6fzkh3UwqHMdSlgH1xFv9FKMqHiNCpXsGPQa/+81AFa+i3jZ253Mq9aAycPwDjnn1XbRNNw==
+  /chartjs-color-string/0.6.0:
+    dependencies:
+      color-name: 1.1.4
+    dev: false
+    resolution:
+      integrity: sha512-TIB5OKn1hPJvO7JcteW4WY/63v6KwEdt6udfnDE9iCAZgy+V4SrbSxoIbTw/xkUIapjEI4ExGtD0+6D3KyFd7A==
+  /chartjs-color/2.4.1:
+    dependencies:
+      chartjs-color-string: 0.6.0
+      color-convert: 1.9.3
+    dev: false
+    resolution:
+      integrity: sha512-haqOg1+Yebys/Ts/9bLo/BqUcONQOdr/hoEr2LLTRl6C5LXctUdHxsCYfvQVg5JIxITrfCNUDr4ntqmQk9+/0w==
   /chokidar/2.1.8:
     dependencies:
       anymatch: 2.0.0
@@ -7355,6 +7377,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==
+  /moment/2.29.1:
+    dev: false
+    resolution:
+      integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
   /move-concurrently/1.0.1:
     dependencies:
       aproba: 1.2.0
@@ -9144,6 +9170,20 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-OfBnObtnGgLGfweORmdZbyEz+3dgVePQBb3zipiaDsMHV1NpWm0rDFYIVXFV/AK+x4VIIfWHhrdMIeoTLyRr2g==
+  /react-chartjs-2/2.10.0_89404dcb5889c639bd4290c0079ad1c8:
+    dependencies:
+      chart.js: 2.9.3
+      lodash: 4.17.20
+      prop-types: 15.7.2
+      react: 16.14.0
+      react-dom: 16.14.0_react@16.14.0
+    dev: false
+    peerDependencies:
+      chart.js: ^2.3
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0-beta || ^16.0.0
+      react-dom: ^0.14.0 || ^15.0.0 || ^16.0.0-beta || ^16.0.0
+    resolution:
+      integrity: sha512-1MjWEkUn8LLFf6GVyYUOrruJTW3yVU5hlEJOwGj3MiokuC+jH/BahjWVGAMonbe9UYbEIUbd2Rn36iVlC0Hb7w==
   /react-dev-utils/10.2.1:
     dependencies:
       '@babel/code-frame': 7.8.3
@@ -11556,8 +11596,10 @@ specifiers:
   '@testing-library/jest-dom': ^4.2.4
   '@testing-library/react': ^9.5.0
   '@testing-library/user-event': ^7.2.1
+  chart.js: ^2.9.3
   dayjs: ^1.9.3
   react: ^16.14.0
+  react-chartjs-2: ^2.10.0
   react-dom: ^16.14.0
   react-router-dom: ^5.2.0
   react-scripts: 3.4.3
