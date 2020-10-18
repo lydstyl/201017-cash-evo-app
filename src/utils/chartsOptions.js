@@ -3,7 +3,7 @@ export const dateFormat = 'DD/MM/YYYY - HH:mm:ss'
 export const options = {
   responsive: true,
   title: {
-    display: true,
+    display: false,
     text: 'Chart.js Time Scale',
   },
   scales: {
@@ -24,7 +24,7 @@ export const options = {
       {
         scaleLabel: {
           display: true,
-          labelString: 'value',
+          labelString: 'montant',
         },
       },
     ],

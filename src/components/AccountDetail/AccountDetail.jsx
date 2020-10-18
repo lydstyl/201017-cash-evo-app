@@ -58,8 +58,6 @@ export const AccountDetail = () => {
       {account && <h2>{account.name}</h2>}
 
       <Line data={chartData} options={options} />
-
-      <pre>{JSON.stringify(data, null, 4)}</pre>
     </div>
   )
 }
