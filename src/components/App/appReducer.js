@@ -24,6 +24,8 @@ export const reducer = (state, action) => {
 
       newState.total = calculateTotal(newState.accounts)
 
+      newState.loading = false
+
       return newState
 
     case actionTypes.POST_ACCOUNT:

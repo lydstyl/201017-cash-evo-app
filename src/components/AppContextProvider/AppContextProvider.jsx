@@ -9,8 +9,6 @@ export const AppContext = React.createContext()
 export const AppContextProvider = ({ children }) => {
   const [appState, appDispatch] = useReducer(reducer, initialState)
 
-  console.log('AppContextProvider -> appState', appState)
-
   useEffect(() => {
     ;(async () => {
       try {
@@ -21,8 +19,6 @@ export const AppContextProvider = ({ children }) => {
         const accounts = response.data
 
         appDispatch({ type: actionTypes.SET_ACCOUNTS, payload: accounts })
-
-        appDispatch({ type: actionTypes.SET_TOTAL, payload: accounts })
       } catch (error) {
         console.log('App -> error', error)
 
@@ -30,6 +26,10 @@ export const AppContextProvider = ({ children }) => {
       }
     })()
   }, [])
+
+  useEffect(() => {
+    console.log('AppContextProvider -> appState', appState)
+  }, [appState])
 
   return (
     <AppContext.Provider value={{ appState, appDispatch }}>
