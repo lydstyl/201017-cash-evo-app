@@ -2,6 +2,7 @@ dependencies:
   '@testing-library/jest-dom': 4.2.4
   '@testing-library/react': 9.5.0_react-dom@16.14.0+react@16.14.0
   '@testing-library/user-event': 7.2.1
+  dayjs: 1.9.3
   react: 16.14.0
   react-dom: 16.14.0_react@16.14.0
   react-router-dom: 5.2.0_react@16.14.0
@@ -3777,6 +3778,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-YTWYI9se1P55u58gL5GkQHW4P6VJBJ5iBT+B5a7i2Tjadhv52paJG0qHX4A0OR6/t52odI64KP2YvFpkDOi3eQ==
+  /dayjs/1.9.3:
+    dev: false
+    resolution:
+      integrity: sha512-V+1SyIvkS+HmNbN1G7A9+ERbFTV9KTXu6Oor98v2xHmzzpp52OIJhQuJSTywWuBY5pyAEmlwbCi1Me87n/SLOw==
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -11551,6 +11556,7 @@ specifiers:
   '@testing-library/jest-dom': ^4.2.4
   '@testing-library/react': ^9.5.0
   '@testing-library/user-event': ^7.2.1
+  dayjs: ^1.9.3
   react: ^16.14.0
   react-dom: ^16.14.0
   react-router-dom: ^5.2.0
