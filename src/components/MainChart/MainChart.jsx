@@ -1,6 +1,7 @@
 import React from 'react'
-
 import { Line } from 'react-chartjs-2'
+
+import { options } from '../../utils/chartsOptions'
 
 export const MainChart = () => {
   const data = {
@@ -52,37 +53,6 @@ export const MainChart = () => {
         borderColor: 'blue',
       },
     ],
-  }
-
-  const options = {
-    responsive: true,
-    title: {
-      display: true,
-      text: 'Chart.js Time Scale',
-    },
-    scales: {
-      xAxes: [
-        {
-          type: 'time',
-          time: {
-            format: 'DD/MM/YYYY',
-            tooltipFormat: 'll',
-          },
-          scaleLabel: {
-            display: true,
-            labelString: 'Date',
-          },
-        },
-      ],
-      yAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: 'value',
-          },
-        },
-      ],
-    },
   }
 
   return (

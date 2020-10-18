@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import { Line } from 'react-chartjs-2'
 
 import { AppContext } from '../App/App'
+import { dateFormat, options } from '../../utils/chartsOptions'
 
 export const AccountDetail = () => {
   const appContext = useContext(AppContext)
@@ -11,39 +12,6 @@ export const AccountDetail = () => {
   const { id } = useParams()
 
   const account = appContext.appState.accounts.find((a) => +a.id === +id)
-
-  const format = 'DD/MM/YYYY - HH:mm:ss'
-
-  const options = {
-    responsive: true,
-    title: {
-      display: true,
-      text: 'Chart.js Time Scale',
-    },
-    scales: {
-      xAxes: [
-        {
-          type: 'time',
-          time: {
-            format: format,
-            tooltipFormat: 'll',
-          },
-          scaleLabel: {
-            display: true,
-            labelString: 'Date',
-          },
-        },
-      ],
-      yAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: 'value',
-          },
-        },
-      ],
-    },
-  }
 
   const data = {}
 
@@ -66,7 +34,7 @@ export const AccountDetail = () => {
         amount: +m.amount,
         createdAt: new Date(m.createdAt),
 
-        createdAtFr: dayjs(m.createdAt, 'MM-DD-YYYY').format(format),
+        createdAtFr: dayjs(m.createdAt, 'MM-DD-YYYY').format(dateFormat),
 
         timestampInSeconds: Math.floor(new Date(m.createdAt) / 1000),
       }
@@ -78,7 +46,6 @@ export const AccountDetail = () => {
       chartData.datasets[0].data.push({ x: m.createdAtFr, y: +m.amount })
     })
   }
-  console.log('createChartData -> chartData', chartData)
 
   if (account) {
     mapMoments()
