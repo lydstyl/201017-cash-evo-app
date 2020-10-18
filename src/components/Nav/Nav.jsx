@@ -8,9 +8,6 @@ export const Nav = () => {
         <li>
           <Link to='/'>Home</Link>
         </li>
-        <li>
-          <Link to='/account-detail'>Détail</Link>
-        </li>
       </ul>
     </nav>
   )

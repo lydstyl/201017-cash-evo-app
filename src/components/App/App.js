@@ -44,7 +44,7 @@ function App() {
         <Nav />
 
         <Switch>
-          <Route path='/account-detail'>
+          <Route path='/account/:id/detail'>
             <AccountDetail />
           </Route>
 

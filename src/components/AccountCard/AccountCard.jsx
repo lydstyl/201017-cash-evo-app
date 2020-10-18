@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { AppContext } from '../App/App'
 import { deleteAccount, putAccount } from '../../services/account'
@@ -85,6 +86,7 @@ export const AccountCard = ({ account }) => {
         className='account-name'
         type='text'
       />
+
       <input
         value={accountAttrs.amount}
         onChange={handleChange}
@@ -93,6 +95,8 @@ export const AccountCard = ({ account }) => {
         type='number'
         step='0.01'
       />
+
+      <Link to={`/account/${account.id}/detail`}>Détail</Link>
 
       {(initialName !== accountAttrs.name ||
         initialAmount !== accountAttrs.amount) && (
