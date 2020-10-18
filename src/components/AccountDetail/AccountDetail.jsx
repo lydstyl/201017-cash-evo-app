@@ -16,13 +16,20 @@ export const AccountDetail = () => {
   if (account) {
     moments = account.moments.map((m) => {
       return {
-        amount: m.amount,
+        amount: +m.amount,
+        createdAt: m.createdAt,
+        createdAtObj: new Date(m.createdAt),
 
-        createdAt: dayjs(m.createdAt, 'MM-DD-YYYY').format(
+        createdAtFr: dayjs(m.createdAt, 'MM-DD-YYYY').format(
           'DD/MM/YYYY - HH:mm:ss'
         ),
+
+        timestampInSeconds: Math.floor(new Date(m.createdAt) / 1000),
       }
     })
+
+    // const endTime = moments.slice(-1)[0].timestampInSeconds
+    // const beginTime = moments[0].timestampInSeconds
   }
 
   return (
