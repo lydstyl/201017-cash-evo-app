@@ -10,7 +10,7 @@ export const AccountDetail = () => {
 
   const { id } = useParams()
 
-  const account = appContext.appState.accounts.find((a) => a.id == id)
+  const account = appContext.appState.accounts.find((a) => +a.id === +id)
 
   const data = {}
 
@@ -22,13 +22,13 @@ export const AccountDetail = () => {
         data: [],
 
         backgroundColor: 'rgba(255,255,255,0',
-        borderColor: 'red',
+        borderColor: 'black',
         // borderWidth: 2,
       },
     ],
   }
 
-  if (account) {
+  const mapMoments = () => {
     data.moments = account.moments.map((m) => {
       return {
         amount: +m.amount,
@@ -41,15 +41,27 @@ export const AccountDetail = () => {
         timestampInSeconds: Math.floor(new Date(m.createdAt) / 1000),
       }
     })
+  }
 
+  const addEndAndBeginTime = () => {
     data.endTime = data.moments.slice(-1)[0].timestampInSeconds
     data.beginTime = data.moments[0].timestampInSeconds
+  }
 
+  const createChartData = () => {
     data.moments.forEach((m) => {
       chartData.labels.push(m.createdAtFr)
 
       chartData.datasets[0].data.push(m.amount)
     })
+  }
+
+  if (account) {
+    mapMoments()
+
+    addEndAndBeginTime()
+
+    createChartData()
   }
 
   return (
