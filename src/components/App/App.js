@@ -36,8 +36,6 @@ function App() {
     })()
   }, [])
 
-  console.log('App -> appState.accounts', appState.accounts)
-
   return (
     <AppContext.Provider value={{ appState, appDispatch }}>
       <Router>
