@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect } from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import './App.css'
 import * as actionTypes from './actionTypes'
@@ -7,6 +8,8 @@ import { getAllAccounts } from '../../services/account'
 import { Spinner } from '../Spinner/Spinner'
 import { AddAccount } from '../AddAccount/AddAccount'
 import { AccountCard } from '../AccountCard/AccountCard'
+import { Nav } from '../Nav/Nav'
+import { AccountDetail } from '../AccountDetail/AccountDetail'
 
 export const AppContext = React.createContext()
 
@@ -37,27 +40,39 @@ function App() {
 
   return (
     <AppContext.Provider value={{ appState, appDispatch }}>
-      <div className='App'>
-        {appState.loading ? (
-          <Spinner />
-        ) : (
-          <>
-            {appState.accounts.length > 0 && (
-              <>
-                <AddAccount />
+      <Router>
+        <Nav />
 
-                <h1>Total : {appState.total}</h1>
+        <Switch>
+          <Route path='/account-detail'>
+            <AccountDetail />
+          </Route>
 
-                <div className='accounts'>
-                  {appState.accounts.map((r) => (
-                    <AccountCard key={r.id} account={r} />
-                  ))}
-                </div>
-              </>
-            )}
-          </>
-        )}
-      </div>
+          <Route path='/'>
+            <div className='App'>
+              {appState.loading ? (
+                <Spinner />
+              ) : (
+                <>
+                  {appState.accounts.length > 0 && (
+                    <>
+                      <AddAccount />
+
+                      <h1>Total : {appState.total}</h1>
+
+                      <div className='accounts'>
+                        {appState.accounts.map((r) => (
+                          <AccountCard key={r.id} account={r} />
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+          </Route>
+        </Switch>
+      </Router>
     </AppContext.Provider>
   )
 }
