@@ -12,18 +12,50 @@ export const AccountDetail = () => {
 
   const account = appContext.appState.accounts.find((a) => +a.id === +id)
 
+  const format = 'DD/MM/YYYY - HH:mm:ss'
+
+  const options = {
+    responsive: true,
+    title: {
+      display: true,
+      text: 'Chart.js Time Scale',
+    },
+    scales: {
+      xAxes: [
+        {
+          type: 'time',
+          time: {
+            format: format,
+            tooltipFormat: 'll',
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Date',
+          },
+        },
+      ],
+      yAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: 'value',
+          },
+        },
+      ],
+    },
+  }
+
   const data = {}
 
   const chartData = {
-    labels: [],
     datasets: [
       {
         label: 'Montant',
         data: [],
 
-        backgroundColor: 'rgba(255,255,255,0',
+        fill: false,
         borderColor: 'black',
-        // borderWidth: 2,
+        // backgroundColor: 'rgba(255,255,255,0',
       },
     ],
   }
@@ -34,32 +66,22 @@ export const AccountDetail = () => {
         amount: +m.amount,
         createdAt: new Date(m.createdAt),
 
-        createdAtFr: dayjs(m.createdAt, 'MM-DD-YYYY').format(
-          'DD/MM/YYYY - HH:mm:ss'
-        ),
+        createdAtFr: dayjs(m.createdAt, 'MM-DD-YYYY').format(format),
 
         timestampInSeconds: Math.floor(new Date(m.createdAt) / 1000),
       }
     })
   }
 
-  const addEndAndBeginTime = () => {
-    data.endTime = data.moments.slice(-1)[0].timestampInSeconds
-    data.beginTime = data.moments[0].timestampInSeconds
-  }
-
   const createChartData = () => {
     data.moments.forEach((m) => {
-      chartData.labels.push(m.createdAtFr)
-
-      chartData.datasets[0].data.push(m.amount)
+      chartData.datasets[0].data.push({ x: m.createdAtFr, y: +m.amount })
     })
   }
+  console.log('createChartData -> chartData', chartData)
 
   if (account) {
     mapMoments()
-
-    addEndAndBeginTime()
 
     createChartData()
   }
@@ -68,7 +90,7 @@ export const AccountDetail = () => {
     <div>
       {account && <h2>{account.name}</h2>}
 
-      <Line data={chartData} />
+      <Line data={chartData} options={options} />
 
       <pre>{JSON.stringify(data, null, 4)}</pre>
     </div>
