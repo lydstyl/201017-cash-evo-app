@@ -18,7 +18,15 @@ export const SumChart = () => {
 
     const minAndMaxDates = getMinAndMaxDates(allMoments)
 
-    const globalMoments = getGlobalMoments(minAndMaxDates) // or name could have been prepareDatasetData
+    const globalMoments = getGlobalMoments(minAndMaxDates)
+
+    const datasetData = getDatasetData(globalMoments)
+
+    const dataSet = getDataSet(datasetData)
+
+    const chartData = getChartData(dataSet)
+
+    setData(chartData)
 
     function getAllMoments(accounts) {
       let allMoments = []
@@ -78,11 +86,6 @@ export const SumChart = () => {
           minAndMaxDates[1],
         ]
 
-        console.log(
-          'getGlobalMoments -> globalMoments',
-          JSON.stringify(globalMoments, null, 4)
-        )
-
         return globalMoments
 
         function getTimeBetweenEveryDates() {
@@ -124,12 +127,42 @@ export const SumChart = () => {
       }
     }
 
-    function nnnnn() {}
+    function getDatasetData(data) {
+      if (data) {
+        data = data.map((d) => ({
+          x: d.createdAt,
+          y: d.amount,
+        }))
+
+        return data
+      } else {
+        return []
+      }
+    }
+
+    function getDataSet(data) {
+      const dataSet = {
+        label: 'Somme de tous les comptes',
+        data,
+      }
+
+      return dataSet
+    }
+
+    function getChartData(dataSet) {
+      const chartData = {
+        datasets: [dataSet],
+      }
+
+      console.log('xxxxxxxx', JSON.stringify(chartData, null, 4))
+
+      return chartData
+    }
   }, [accounts])
 
   return (
     <div>
-      {/* <Line data={data} options={options} /> */}
+      <Line data={data} options={options} />
 
       <pre>
         {JSON.stringify(
