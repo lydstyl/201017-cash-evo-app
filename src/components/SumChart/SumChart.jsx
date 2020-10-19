@@ -4,7 +4,7 @@ import { AppContext } from '../AppContextProvider/AppContextProvider'
 import { Line } from 'react-chartjs-2'
 import { formatDate, options } from '../../utils/chartsOptions'
 
-import { jsonify } from '../../utils/jsonify'
+// import { jsonify } from '../../utils/jsonify'
 
 export const SumChart = () => {
   const appContext = useContext(AppContext)
@@ -17,8 +17,6 @@ export const SumChart = () => {
 
   useEffect(() => {
     const allMoments = getAllMoments(accounts)
-
-    jsonify('allMoments', allMoments)
 
     const minAndMaxDates = getMinAndMaxDates(allMoments)
 
@@ -137,21 +135,22 @@ export const SumChart = () => {
     function getAccountsSum(date) {
       const momentsBeforeDate = getMomentsBeforeDate(date)
 
-      // console.log('getAccountsSum -> date', date)
+      const amounts = getAmounts(momentsBeforeDate)
 
-      const effectiveMoments = getEffectiveMoments(momentsBeforeDate)
-      jsonify('effectiveMoments', effectiveMoments)
+      const accountsSum = amounts.reduce(
+        (previousVal, currentVal) => previousVal + currentVal
+      )
 
-      return 10
+      return accountsSum
     }
 
     function getMomentsBeforeDate(date) {
       return allMoments.filter((m) => m.date <= date)
     }
 
-    function getEffectiveMoments(moments) {
+    function getAmounts(moments) {
       // return last moment of each account
-      const effectiveMoments = {}
+      let effectiveMoments = {}
 
       moments.forEach((m) => {
         const { id, date, amount } = m
@@ -163,7 +162,15 @@ export const SumChart = () => {
         }
       })
 
-      return effectiveMoments
+      const amounts = effectiveMomentToAmounts(effectiveMoments)
+
+      return amounts
+    }
+
+    function effectiveMomentToAmounts(effectiveMoments) {
+      return Object.keys(effectiveMoments).map(
+        (k) => effectiveMoments[k].amount
+      )
     }
 
     function getFirstDate() {
