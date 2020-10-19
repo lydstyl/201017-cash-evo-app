@@ -51,8 +51,6 @@ export const MainChart = () => {
   return (
     <div>
       <Line data={data} options={options} />
-
-      <pre>{JSON.stringify(data, null, 4)}</pre>
     </div>
   )
 }

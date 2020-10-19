@@ -4,8 +4,6 @@ import { AppContext } from '../AppContextProvider/AppContextProvider'
 import { Line } from 'react-chartjs-2'
 import { formatDate, options } from '../../utils/chartsOptions'
 
-// import { jsonify } from '../../utils/jsonify'
-
 export const SumChart = () => {
   const appContext = useContext(AppContext)
 
@@ -79,7 +77,7 @@ export const SumChart = () => {
 
     function getGlobalMoments(minAndMaxDates) {
       if (minAndMaxDates[0]) {
-        const totalNumberOfDates = 4 // if we whant 10 dates --> min, max and 8 in between
+        const totalNumberOfDates = 120 // if we whant 10 dates --> min, max and 8 in between
 
         const inBetweenDates = getInBetweenDates(minAndMaxDates[1])
 
@@ -222,8 +220,6 @@ export const SumChart = () => {
   return (
     <div>
       <Line data={data} options={options} />
-
-      <pre>{JSON.stringify(accounts, null, 4)}</pre>
     </div>
   )
 }
