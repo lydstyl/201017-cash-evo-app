@@ -4,6 +4,8 @@ import { AppContext } from '../AppContextProvider/AppContextProvider'
 import { Line } from 'react-chartjs-2'
 import { formatDate, options } from '../../utils/chartsOptions'
 
+import { jsonify } from '../../utils/jsonify'
+
 export const SumChart = () => {
   const appContext = useContext(AppContext)
 
@@ -15,6 +17,8 @@ export const SumChart = () => {
 
   useEffect(() => {
     const allMoments = getAllMoments(accounts)
+
+    jsonify('allMoments', allMoments)
 
     const minAndMaxDates = getMinAndMaxDates(allMoments)
 
@@ -35,6 +39,7 @@ export const SumChart = () => {
         allMoments = [
           ...allMoments,
           ...a.moments.map((m) => ({
+            id: a.id,
             name: a.name, // todo remove this
             date: new Date(m.createdAt),
             amount: m.amount,
@@ -119,24 +124,54 @@ export const SumChart = () => {
           return inBetweenDates
 
           function setAmount(betweenDate) {
-            allMoments.forEach((m) => {
-              if (m.date <= betweenDate.date) {
-                betweenDate.amount = +betweenDate.amount + +m.amount
-              }
-            })
+            const date = betweenDate.date
 
-            return 0
+            const accountsSum = getAccountsSum(date)
+
+            betweenDate.amount = +betweenDate.amount + accountsSum
           }
         }
-
-        function getFirstDate() {
-          let firstDate = minAndMaxDates[0].date
-
-          firstDate = firstDate.getTime()
-
-          return firstDate
-        }
       }
+    }
+
+    function getAccountsSum(date) {
+      const momentsBeforeDate = getMomentsBeforeDate(date)
+
+      // console.log('getAccountsSum -> date', date)
+
+      const effectiveMoments = getEffectiveMoments(momentsBeforeDate)
+      jsonify('effectiveMoments', effectiveMoments)
+
+      return 10
+    }
+
+    function getMomentsBeforeDate(date) {
+      return allMoments.filter((m) => m.date <= date)
+    }
+
+    function getEffectiveMoments(moments) {
+      // return last moment of each account
+      const effectiveMoments = {}
+
+      moments.forEach((m) => {
+        const { id, date, amount } = m
+
+        if (!effectiveMoments.id) {
+          effectiveMoments[id] = { date, amount: +amount }
+        } else if (date > effectiveMoments.id.date) {
+          effectiveMoments.id = { date, amount: +amount }
+        }
+      })
+
+      return effectiveMoments
+    }
+
+    function getFirstDate() {
+      let firstDate = minAndMaxDates[0].date
+
+      firstDate = firstDate.getTime()
+
+      return firstDate
     }
 
     function getDatasetData(data) {
@@ -165,8 +200,6 @@ export const SumChart = () => {
       const chartData = {
         datasets: [dataSet],
       }
-
-      console.log('xxxxxxxx', JSON.stringify(chartData, null, 4))
 
       return chartData
     }
