@@ -50,15 +50,20 @@ export const SumChart = () => {
     }
 
     function getMinAndMaxDates(allMoments) {
-      const minAndMaxDates = []
+      if (allMoments.length) {
+        const minAndMaxDates = []
+        const firstMoment = allMoments[0]
+        firstMoment.amount = +firstMoment.amount
 
-      const firstMoment = allMoments[0]
+        const lastMoment = allMoments.slice(-1)[0]
+        lastMoment.amount = +lastMoment.amount
 
-      const lastMoment = allMoments.slice(-1)[0]
+        minAndMaxDates.push(firstMoment, lastMoment)
 
-      minAndMaxDates.push(firstMoment, lastMoment)
-
-      return minAndMaxDates
+        return minAndMaxDates
+      } else {
+        return [undefined, undefined]
+      }
     }
 
     function prepareGlobalMoments(minAndMaxDates) {
@@ -86,7 +91,7 @@ export const SumChart = () => {
           const inBetweendate = {
             name: '',
             date: dateValue,
-            amount: '0.00',
+            amount: +'0.00',
             createdAt: formatDate(dateValue),
           }
 
