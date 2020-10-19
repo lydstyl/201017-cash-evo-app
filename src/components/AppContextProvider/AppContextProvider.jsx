@@ -27,9 +27,9 @@ export const AppContextProvider = ({ children }) => {
     })()
   }, [])
 
-  useEffect(() => {
-    console.log('AppContextProvider -> appState', appState)
-  }, [appState])
+  // useEffect(() => {
+  //   console.log('AppContextProvider -> appState', appState)
+  // }, [appState])
 
   return (
     <AppContext.Provider value={{ appState, appDispatch }}>

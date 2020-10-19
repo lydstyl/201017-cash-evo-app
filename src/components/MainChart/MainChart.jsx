@@ -1,62 +1,57 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import dayjs from 'dayjs'
 
 import { AppContext } from '../AppContextProvider/AppContextProvider'
 import { Line } from 'react-chartjs-2'
-import { options } from '../../utils/chartsOptions'
+import { dateFormat, options } from '../../utils/chartsOptions'
 
 export const MainChart = () => {
   const appContext = useContext(AppContext)
 
-  const data = {
-    datasets: [
-      {
-        label: 'US Dates',
-        data: [
-          {
-            x: '04/01/2014',
-            y: 175,
-          },
-          {
-            x: '10/01/2014',
-            y: 175,
-          },
-          {
-            x: '04/01/2015',
-            y: 178,
-          },
-          {
-            x: '10/01/2015',
-            y: 178,
-          },
-        ],
-        fill: false,
-        borderColor: 'red',
-      },
-      {
-        label: 'UK Dates',
-        data: [
-          {
-            x: '01/04/2014',
-            y: 175,
-          },
-          {
-            x: '01/10/2014',
-            y: 175,
-          },
-          {
-            x: '01/04/2015',
-            y: 178,
-          },
-          {
-            x: '01/10/2015',
-            y: 178,
-          },
-        ],
-        fill: false,
-        borderColor: 'blue',
-      },
-    ],
-  }
+  const [data, setData] = useState({})
+
+  let {
+    appState: { accounts },
+  } = appContext
+
+  console.log('MainChart -> data', data)
+
+  console.log('MainChart -> accounts', accounts)
+
+  useEffect(() => {
+    mapDataForChart()
+
+    const datasets = createDatasets()
+
+    setData({ datasets })
+
+    function mapDataForChart() {
+      accounts = accounts.map((a) => {
+        return {
+          name: a.name,
+          moments: a.moments.map((m) => ({
+            amount: m.amount,
+            createdAt: dayjs(m.createdAt, 'MM-DD-YYYY').format(dateFormat),
+          })),
+        }
+      })
+    }
+
+    function createDatasets() {
+      const datasets = []
+
+      accounts.forEach((a) => {
+        datasets.push({
+          label: a.name,
+          data: a.moments.map((m) => ({ x: m.createdAt, y: m.amount })),
+          fill: false,
+          borderColor: 'black',
+        })
+      })
+
+      return datasets
+    }
+  }, [accounts])
 
   return (
     <div>
