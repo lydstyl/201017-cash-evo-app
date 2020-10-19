@@ -11,7 +11,10 @@ export const Nav = () => {
             <Link to='/'>Home</Link>
           </li>
           <li>
-            <Link to='/main-chart'>Graphique général</Link>
+            <Link to='/sum-chart'>Graphique somme totale</Link>
+          </li>
+          <li>
+            <Link to='/comparison-graph'>Graphique comparatif</Link>
           </li>
         </ul>
       </nav>

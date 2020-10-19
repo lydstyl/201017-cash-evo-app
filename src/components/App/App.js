@@ -5,6 +5,7 @@ import { AppContextProvider } from '../AppContextProvider/AppContextProvider'
 import { Nav } from '../Nav/Nav'
 import { Home } from '../Home/Home'
 import { AccountDetail } from '../AccountDetail/AccountDetail'
+import { SumChart } from '../SumChart/SumChart'
 import { MainChart } from '../MainChart/MainChart'
 
 import './App.css'
@@ -16,11 +17,15 @@ function App() {
         <Nav />
 
         <Switch>
-          <Route path='/account/:id/detail'>
+          <Route path='/account/:id/:name'>
             <AccountDetail />
           </Route>
 
-          <Route path='/main-chart'>
+          <Route path='/sum-chart'>
+            <SumChart />
+          </Route>
+
+          <Route path='/comparison-graph'>
             <MainChart />
           </Route>
 

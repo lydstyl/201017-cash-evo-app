@@ -102,7 +102,7 @@ export const AccountCard = ({ account }) => {
       <div className='body'></div>
 
       <div className='footer'>
-        <Link to={`/account/${account.id}/detail`}>Détail</Link>
+        <Link to={`/account/${account.id}/${account.name}`}>Détail</Link>
 
         {(initialName !== accountAttrs.name ||
           initialAmount !== accountAttrs.amount) && (
