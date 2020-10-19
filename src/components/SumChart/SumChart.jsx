@@ -81,13 +81,9 @@ export const SumChart = () => {
       if (minAndMaxDates[0]) {
         const totalNumberOfDates = 4 // if we whant 10 dates --> min, max and 8 in between
 
-        const inBetweenDates = getInBetweenDates()
+        const inBetweenDates = getInBetweenDates(minAndMaxDates[1])
 
-        const globalMoments = [
-          minAndMaxDates[0],
-          ...inBetweenDates,
-          minAndMaxDates[1],
-        ]
+        const globalMoments = [minAndMaxDates[0], ...inBetweenDates]
 
         return globalMoments
 
@@ -100,8 +96,8 @@ export const SumChart = () => {
           return timeBetweenEveryDates
         }
 
-        function getInBetweenDates() {
-          const inBetweenDates = []
+        function getInBetweenDates(lastMoment) {
+          let inBetweenDates = []
           for (let i = 0; i < totalNumberOfDates - 2; i++) {
             const timeToAdd = getTimeBetweenEveryDates() * (i + 1)
 
@@ -118,6 +114,17 @@ export const SumChart = () => {
 
             inBetweenDates.push(inBetweendate)
           }
+
+          lastMoment = {
+            ...lastMoment,
+            name: 'lastMoment',
+            amount: 0,
+            createdAt: formatDate(lastMoment.date),
+          }
+
+          setAmount(lastMoment)
+
+          inBetweenDates = [...inBetweenDates, lastMoment]
 
           return inBetweenDates
 
