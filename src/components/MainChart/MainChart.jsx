@@ -21,6 +21,7 @@ export const MainChart = () => {
     setData({ datasets })
 
     function mapDataForChart() {
+      // eslint-disable-next-line
       accounts = accounts.map((a) => {
         return {
           name: a.name,
