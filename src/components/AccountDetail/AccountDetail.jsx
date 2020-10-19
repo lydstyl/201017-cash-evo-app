@@ -1,10 +1,9 @@
 import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import dayjs from 'dayjs'
 import { Line } from 'react-chartjs-2'
 
 import { AppContext } from '../AppContextProvider/AppContextProvider'
-import { dateFormat, options } from '../../utils/chartsOptions'
+import { formatDate, options } from '../../utils/chartsOptions'
 
 export const AccountDetail = () => {
   const appContext = useContext(AppContext)
@@ -34,7 +33,7 @@ export const AccountDetail = () => {
         amount: +m.amount,
         createdAt: new Date(m.createdAt),
 
-        createdAtFr: dayjs(m.createdAt, 'MM-DD-YYYY').format(dateFormat),
+        createdAtFr: formatDate(m.createdAt),
 
         timestampInSeconds: Math.floor(new Date(m.createdAt) / 1000),
       }

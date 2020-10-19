@@ -1,4 +1,10 @@
+import dayjs from 'dayjs'
+
 export const dateFormat = 'DD/MM/YYYY - HH:mm:ss'
+
+export function formatDate(date) {
+  return dayjs(date, 'MM-DD-YYYY').format(dateFormat)
+}
 
 export const options = {
   responsive: true,

@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
-import dayjs from 'dayjs'
 
 import { AppContext } from '../AppContextProvider/AppContextProvider'
 import { Line } from 'react-chartjs-2'
-import { dateFormat, options } from '../../utils/chartsOptions'
+import { formatDate, options } from '../../utils/chartsOptions'
 
 export const MainChart = () => {
   const appContext = useContext(AppContext)
@@ -13,10 +12,6 @@ export const MainChart = () => {
   let {
     appState: { accounts },
   } = appContext
-
-  console.log('MainChart -> data', data)
-
-  console.log('MainChart -> accounts', accounts)
 
   useEffect(() => {
     mapDataForChart()
@@ -31,7 +26,7 @@ export const MainChart = () => {
           name: a.name,
           moments: a.moments.map((m) => ({
             amount: m.amount,
-            createdAt: dayjs(m.createdAt, 'MM-DD-YYYY').format(dateFormat),
+            createdAt: formatDate(m.createdAt),
           })),
         }
       })
@@ -45,7 +40,7 @@ export const MainChart = () => {
           label: a.name,
           data: a.moments.map((m) => ({ x: m.createdAt, y: m.amount })),
           fill: false,
-          borderColor: 'black',
+          borderColor: '#00F',
         })
       })
 
@@ -56,10 +51,8 @@ export const MainChart = () => {
   return (
     <div>
       <Line data={data} options={options} />
+
+      <pre>{JSON.stringify(data, null, 4)}</pre>
     </div>
   )
 }
-
-// se connectrer chopseer les doinnees
-
-// maper les données pour le chart
