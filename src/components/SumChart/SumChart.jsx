@@ -107,14 +107,26 @@ export const SumChart = () => {
             const inBetweendate = {
               name: '',
               date: dateValue,
-              amount: +'0.00',
+              amount: 0,
               createdAt: formatDate(dateValue),
             }
+
+            setAmount(inBetweendate)
 
             inBetweenDates.push(inBetweendate)
           }
 
           return inBetweenDates
+
+          function setAmount(betweenDate) {
+            allMoments.forEach((m) => {
+              if (m.date <= betweenDate.date) {
+                betweenDate.amount = +betweenDate.amount + +m.amount
+              }
+            })
+
+            return 0
+          }
         }
 
         function getFirstDate() {
@@ -163,34 +175,6 @@ export const SumChart = () => {
   return (
     <div>
       <Line data={data} options={options} />
-
-      <pre>
-        {JSON.stringify(
-          {
-            datasets: [
-              {
-                label: 'ING',
-                data: [
-                  {
-                    x: '17/10/2020 - 21:16:15',
-                    y: '300.00',
-                  },
-                  {
-                    x: '17/10/2020 - 21:16:30',
-                    y: '400.00',
-                  },
-                ],
-                fill: false,
-                borderColor: '#00F',
-              },
-            ],
-          },
-
-          null,
-
-          4
-        )}
-      </pre>
 
       <pre>{JSON.stringify(accounts, null, 4)}</pre>
     </div>

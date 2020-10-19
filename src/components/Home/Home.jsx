@@ -16,12 +16,11 @@ export const Home = () => {
         <Spinner />
       ) : (
         <>
+          <AddAccount />
+
           {appState.accounts.length > 0 && (
             <>
-              <AddAccount />
-
               <h2>Total : {appState.total}</h2>
-
               <div className='accounts'>
                 {appState.accounts.map((r) => (
                   <AccountCard key={r.id} account={r} />
