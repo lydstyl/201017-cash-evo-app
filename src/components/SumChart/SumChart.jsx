@@ -18,7 +18,7 @@ export const SumChart = () => {
 
     const minAndMaxDates = getMinAndMaxDates(allMoments)
 
-    const globalMoments = prepareGlobalMoments(minAndMaxDates) // or name could have been prepareDatasetData
+    const globalMoments = getGlobalMoments(minAndMaxDates) // or name could have been prepareDatasetData
 
     function getAllMoments(accounts) {
       let allMoments = []
@@ -66,37 +66,12 @@ export const SumChart = () => {
       }
     }
 
-    function prepareGlobalMoments(minAndMaxDates) {
+    function getGlobalMoments(minAndMaxDates) {
       if (minAndMaxDates[0]) {
-        const totalNumberOfDates = 10 // if we whant 10 dates --> min, max and 8 in between
+        const totalNumberOfDates = 4 // if we whant 10 dates --> min, max and 8 in between
 
-        const maxMinDateDiff = Math.abs(
-          minAndMaxDates[1].date - minAndMaxDates[0].date
-        ) // in milliseconds
+        const inBetweenDates = getInBetweenDates()
 
-        const timeBetweenEveryDates = maxMinDateDiff / totalNumberOfDates // in milliseconds
-
-        let firstDate = minAndMaxDates[0].date
-        firstDate = firstDate.getTime()
-
-        // const checkFirstDate = new Date(firstDate)
-        // console.log('prepareGlobalMoments -> checkFirstDate ', checkFirstDate)
-
-        const inBetweenDates = []
-        for (let i = 0; i < totalNumberOfDates - 2; i++) {
-          const timeToAdd = timeBetweenEveryDates * (i + 1)
-
-          const dateValue = new Date(firstDate + timeToAdd) // I hope this is correct
-
-          const inBetweendate = {
-            name: '',
-            date: dateValue,
-            amount: +'0.00',
-            createdAt: formatDate(dateValue),
-          }
-
-          inBetweenDates.push(inBetweendate)
-        }
         const globalMoments = [
           minAndMaxDates[0],
           ...inBetweenDates,
@@ -104,12 +79,52 @@ export const SumChart = () => {
         ]
 
         console.log(
-          'prepareGlobalMoments -> globalMoments',
+          'getGlobalMoments -> globalMoments',
           JSON.stringify(globalMoments, null, 4)
         )
+
         return globalMoments
+
+        function getTimeBetweenEveryDates() {
+          const maxMinDateDiff = Math.abs(
+            minAndMaxDates[1].date - minAndMaxDates[0].date
+          ) // in milliseconds
+
+          const timeBetweenEveryDates = maxMinDateDiff / totalNumberOfDates // in milliseconds
+          return timeBetweenEveryDates
+        }
+
+        function getInBetweenDates() {
+          const inBetweenDates = []
+          for (let i = 0; i < totalNumberOfDates - 2; i++) {
+            const timeToAdd = getTimeBetweenEveryDates() * (i + 1)
+
+            const dateValue = new Date(getFirstDate() + timeToAdd) // I hope this is correct
+
+            const inBetweendate = {
+              name: '',
+              date: dateValue,
+              amount: +'0.00',
+              createdAt: formatDate(dateValue),
+            }
+
+            inBetweenDates.push(inBetweendate)
+          }
+
+          return inBetweenDates
+        }
+
+        function getFirstDate() {
+          let firstDate = minAndMaxDates[0].date
+
+          firstDate = firstDate.getTime()
+
+          return firstDate
+        }
       }
     }
+
+    function nnnnn() {}
   }, [accounts])
 
   return (
