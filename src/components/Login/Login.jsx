@@ -30,9 +30,7 @@ export const Login = () => {
         password,
       })
 
-      console.log('handleClick -> response', response)
-
-      if (true) {
+      if (response.success) {
         appDispatch({ type: actionTypes.SET_IS_LOGIN, payload: true })
       }
     } catch (error) {
