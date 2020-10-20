@@ -20,6 +20,8 @@ export const reducer = (state, action) => {
     case actionTypes.SET_IS_LOGIN:
       newState.isLogin = action.payload
 
+      newState.loading = false
+
       return newState
 
     case actionTypes.SET_ACCOUNTS:
