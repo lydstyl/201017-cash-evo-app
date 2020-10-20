@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { AppContextProvider } from '../AppContextProvider/AppContextProvider'
 import { Nav } from '../Nav/Nav'
+import { Login } from '../Login/Login'
+import { PrivateRoute } from '../PrivateRoute/PrivateRoute'
 import { Home } from '../Home/Home'
 import { AccountDetail } from '../AccountDetail/AccountDetail'
 import { SumChart } from '../SumChart/SumChart'
@@ -15,23 +17,24 @@ function App() {
     <AppContextProvider>
       <Router>
         <Nav />
-
         <Switch>
-          <Route path='/account/:id/:name'>
+          <Route path='/login' component={Login} />
+
+          <PrivateRoute path='/account/:id/:name'>
             <AccountDetail />
-          </Route>
+          </PrivateRoute>
 
-          <Route path='/sum-chart'>
+          <PrivateRoute path='/sum-chart'>
             <SumChart />
-          </Route>
+          </PrivateRoute>
 
-          <Route path='/comparison-graph'>
+          <PrivateRoute path='/comparison-graph'>
             <MainChart />
-          </Route>
+          </PrivateRoute>
 
-          <Route path='/'>
+          <PrivateRoute path='/'>
             <Home />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </Router>
     </AppContextProvider>

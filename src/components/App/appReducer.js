@@ -5,6 +5,7 @@ export const initialState = {
   accounts: [],
   total: 0,
   loading: false,
+  isLogin: false,
 }
 
 export const reducer = (state, action) => {
@@ -13,6 +14,11 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case actionTypes.SET_LOADING:
       newState.loading = action.payload
+
+      return newState
+
+    case actionTypes.SET_IS_LOGIN:
+      newState.isLogin = action.payload
 
       return newState
 

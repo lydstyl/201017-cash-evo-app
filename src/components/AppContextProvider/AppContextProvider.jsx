@@ -6,6 +6,13 @@ import { getAllAccounts } from '../../services/account'
 
 export const AppContext = React.createContext()
 
+// THIS DON'T WORKS !
+// export const useAppContext = () => {
+//   const [appState, appDispatch] = useReducer(reducer, initialState)
+
+//   return { appState, appDispatch }
+// }
+
 export const AppContextProvider = ({ children }) => {
   const [appState, appDispatch] = useReducer(reducer, initialState)
 
@@ -26,10 +33,6 @@ export const AppContextProvider = ({ children }) => {
       }
     })()
   }, [])
-
-  // useEffect(() => {
-  //   console.log('AppContextProvider -> appState', appState)
-  // }, [appState])
 
   return (
     <AppContext.Provider value={{ appState, appDispatch }}>
