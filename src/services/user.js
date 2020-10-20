@@ -21,3 +21,34 @@ export const getAllUsers = () => {
     }
   })
 }
+
+export const postLogin = (data) => {
+  const pathEnd = `/login`
+
+  const body = data
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(
+        `${scheme}://${authority}${pathBegin}${pathEnd}`,
+
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+
+          body: JSON.stringify(body),
+        }
+      )
+
+      const data = await response.json()
+
+      resolve(data)
+    } catch (error) {
+      console.log('getAllAccounts -> error', error)
+
+      reject(error)
+    }
+  })
+}
