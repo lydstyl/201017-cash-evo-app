@@ -20,18 +20,23 @@ export const AppContextProvider = ({ children }) => {
       try {
         appDispatch({ type: actionTypes.SET_LOADING, payload: true })
 
-        const response = await getAllAccounts()
+        let response = {}
+        if (appState.isLogin) {
+          response = await getAllAccounts()
 
-        const accounts = response.data
+          const accounts = response.data
 
-        appDispatch({ type: actionTypes.SET_ACCOUNTS, payload: accounts })
+          appDispatch({ type: actionTypes.SET_ACCOUNTS, payload: accounts })
+        } else {
+          appDispatch({ type: actionTypes.SET_LOADING, payload: false })
+        }
       } catch (error) {
         console.log('App -> error', error)
 
         appDispatch({ type: actionTypes.SET_LOADING, payload: false })
       }
     })()
-  }, [])
+  }, [appState.isLogin])
 
   return (
     <AppContext.Provider value={{ appState, appDispatch }}>
