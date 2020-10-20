@@ -1,12 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 
-import { AppContext } from '../AppContextProvider/AppContextProvider'
+import { useIsLogin } from '../AppContextProvider/AppContextProvider'
 
 export const PrivateRoute = ({ children, ...rest }) => {
-  const appContext = useContext(AppContext)
-
-  const { isLogin } = appContext.appState
+  const isLogin = useIsLogin()
 
   return (
     <Route

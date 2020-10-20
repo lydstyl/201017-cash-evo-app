@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react'
+import React, { useContext, useReducer, useEffect } from 'react'
 
 import { initialState, reducer } from '../App/appReducer'
 import * as actionTypes from '../App/actionTypes'
@@ -6,12 +6,11 @@ import { getAllAccounts } from '../../services/account'
 
 export const AppContext = React.createContext()
 
-// THIS DON'T WORKS !
-// export const useAppContext = () => {
-//   const [appState, appDispatch] = useReducer(reducer, initialState)
+export const useIsLogin = () => {
+  const appContext = useContext(AppContext)
 
-//   return { appState, appDispatch }
-// }
+  return appContext.appState.isLogin
+}
 
 export const AppContextProvider = ({ children }) => {
   const [appState, appDispatch] = useReducer(reducer, initialState)
