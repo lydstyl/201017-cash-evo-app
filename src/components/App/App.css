@@ -38,3 +38,26 @@ h2 {
   font-size: 1.75rem;
   text-align: left;
 }
+
+a,
+button {
+  display: block;
+  font-size: 1rem;
+  min-width: 20px;
+  max-width: 100px;
+  line-height: 18px;
+  margin: 10px auto;
+  padding: 10px;
+
+  background-color: var(--dark);
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+a:hover,
+button:hover {
+  background-color: var(--primary);
+}

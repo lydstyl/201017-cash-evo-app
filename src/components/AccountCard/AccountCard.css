@@ -4,11 +4,16 @@
   background-color: var(--light);
 }
 
-.account-card input,
-.account-card button {
-  margin: 8px 8px 8px 0;
+.account-card input {
+  display: block;
+  margin: 10px auto;
+  font-size: 1.5rem;
+  border: none;
+  text-align: right;
 }
 
 .account-card input:first-child {
-  margin-right: 0;
+  text-align: center;
+  background-color: var(--primary);
+  border-top: 4px solid var(--dark);
 }
