@@ -1,0 +1,36 @@
+.home {
+  max-width: var(--max-width);
+  margin: auto;
+}
+
+.accounts {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr;
+
+  margin-top: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .accounts {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .accounts {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .accounts {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .accounts {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+}

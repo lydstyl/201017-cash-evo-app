@@ -1,4 +1,40 @@
-.accounts {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+:root {
+  --primary: #66bb6a;
+  --light: #c8e6c9;
+  --dark: #2e7d32;
+
+  /* --primary: #02ee1b;
+  --complementary: #ee02d6;
+  --analogous1: #60ee02;
+  --analogous2: #02ee90;
+  --triadic1: #02d6ee;
+  --triadic2: #1a02ee; */
+
+  --max-width: 1920px;
+}
+
+html {
+  font-size: 100%; /* 16px */
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2 {
+  border-top: 10px solid var(--dark);
+  background-color: var(--primary);
+  color: white;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 2rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.75rem;
+  text-align: left;
 }

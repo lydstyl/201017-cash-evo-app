@@ -1,5 +1,7 @@
 .account-card {
-  margin-bottom: 20px;
+  padding: 10px;
+
+  background-color: var(--light);
 }
 
 .account-card input,

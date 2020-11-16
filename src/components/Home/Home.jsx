@@ -5,6 +5,8 @@ import { Spinner } from '../Spinner/Spinner'
 import { AddAccount } from '../AddAccount/AddAccount'
 import { AccountCard } from '../AccountCard/AccountCard'
 
+import './Home.css'
+
 export const Home = () => {
   const appContext = useContext(AppContext)
 
@@ -22,7 +24,7 @@ export const Home = () => {
             <>
               <h2>Total : {appState.total}</h2>
               <div className='accounts'>
-                {appState.accounts.map((r) => (
+                {appState.accounts.map(r => (
                   <AccountCard key={r.id} account={r} />
                 ))}
               </div>
