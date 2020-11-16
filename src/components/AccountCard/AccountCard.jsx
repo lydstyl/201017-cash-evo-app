@@ -23,23 +23,27 @@ export const AccountCard = ({ account }) => {
   const initialAmount = parseFloat(account.amount)
 
   const handleDelete = async () => {
-    try {
-      appDispatch({ type: actionTypes.SET_LOADING, payload: true })
+    const isConfirmed = window.confirm('Êtes vous sûr de vouloir supprimer ?')
 
-      await deleteAccount(account.id)
+    if (isConfirmed) {
+      try {
+        appDispatch({ type: actionTypes.SET_LOADING, payload: true })
 
-      appDispatch({
-        type: actionTypes.DELETE_ACCOUNT,
-        payload: account.id,
-      })
-    } catch (error) {
-      console.log('handleDelete -> error', error)
+        await deleteAccount(account.id)
 
-      appDispatch({ type: actionTypes.SET_LOADING, payload: false })
+        appDispatch({
+          type: actionTypes.DELETE_ACCOUNT,
+          payload: account.id,
+        })
+      } catch (error) {
+        console.log('handleDelete -> error', error)
+
+        appDispatch({ type: actionTypes.SET_LOADING, payload: false })
+      }
     }
   }
 
-  const handleChange = async (evt) => {
+  const handleChange = async evt => {
     const newAccountAttrs = { ...accountAttrs }
 
     let value = evt.target.value
@@ -52,7 +56,7 @@ export const AccountCard = ({ account }) => {
     setAccountAttrs(newAccountAttrs)
   }
 
-  const handleSave = async (evt) => {
+  const handleSave = async evt => {
     try {
       appDispatch({ type: actionTypes.SET_LOADING, payload: true })
 
