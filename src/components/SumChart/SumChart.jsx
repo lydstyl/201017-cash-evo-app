@@ -9,8 +9,8 @@ export const SumChart = () => {
 
   const [data, setData] = useState({})
 
-  let {
-    appState: { accounts },
+  const {
+    appState: { accounts }
   } = appContext
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export const SumChart = () => {
 
     setData(chartData)
 
-    function getAllMoments(accounts) {
+    function getAllMoments (accounts) {
       let allMoments = []
 
       accounts.forEach((a) => {
@@ -40,8 +40,8 @@ export const SumChart = () => {
             date: new Date(m.createdAt),
             amount: m.amount,
 
-            createdAt: formatDate(m.createdAt),
-          })),
+            createdAt: formatDate(m.createdAt)
+          }))
         ]
 
         return a
@@ -58,7 +58,7 @@ export const SumChart = () => {
       return allMoments
     }
 
-    function getMinAndMaxDates(allMoments) {
+    function getMinAndMaxDates (allMoments) {
       if (allMoments.length) {
         const minAndMaxDates = []
         const firstMoment = allMoments[0]
@@ -75,7 +75,7 @@ export const SumChart = () => {
       }
     }
 
-    function getGlobalMoments(minAndMaxDates) {
+    function getGlobalMoments (minAndMaxDates) {
       if (minAndMaxDates[0]) {
         const totalNumberOfDates = 120 // if we whant 10 dates --> min, max and 8 in between
 
@@ -85,7 +85,7 @@ export const SumChart = () => {
 
         return globalMoments
 
-        function getTimeBetweenEveryDates() {
+        function getTimeBetweenEveryDates () {
           const maxMinDateDiff = Math.abs(
             minAndMaxDates[1].date - minAndMaxDates[0].date
           ) // in milliseconds
@@ -94,7 +94,7 @@ export const SumChart = () => {
           return timeBetweenEveryDates
         }
 
-        function getInBetweenDates(lastMoment) {
+        function getInBetweenDates (lastMoment) {
           let inBetweenDates = []
           for (let i = 0; i < totalNumberOfDates - 2; i++) {
             const timeToAdd = getTimeBetweenEveryDates() * (i + 1)
@@ -105,7 +105,7 @@ export const SumChart = () => {
               name: '',
               date: dateValue,
               amount: 0,
-              createdAt: formatDate(dateValue),
+              createdAt: formatDate(dateValue)
             }
 
             setAmount(inBetweendate)
@@ -117,7 +117,7 @@ export const SumChart = () => {
             ...lastMoment,
             name: 'lastMoment',
             amount: 0,
-            createdAt: formatDate(lastMoment.date),
+            createdAt: formatDate(lastMoment.date)
           }
 
           setAmount(lastMoment)
@@ -126,7 +126,7 @@ export const SumChart = () => {
 
           return inBetweenDates
 
-          function setAmount(betweenDate) {
+          function setAmount (betweenDate) {
             const date = betweenDate.date
 
             const accountsSum = getAccountsSum(date)
@@ -137,7 +137,7 @@ export const SumChart = () => {
       }
     }
 
-    function getAccountsSum(date) {
+    function getAccountsSum (date) {
       const momentsBeforeDate = getMomentsBeforeDate(date)
 
       const amounts = getAmounts(momentsBeforeDate)
@@ -149,13 +149,13 @@ export const SumChart = () => {
       return accountsSum
     }
 
-    function getMomentsBeforeDate(date) {
+    function getMomentsBeforeDate (date) {
       return allMoments.filter((m) => m.date <= date)
     }
 
-    function getAmounts(moments) {
+    function getAmounts (moments) {
       // return last moment of each account
-      let effectiveMoments = {}
+      const effectiveMoments = {}
 
       moments.forEach((m) => {
         const { id, date, amount } = m
@@ -172,13 +172,13 @@ export const SumChart = () => {
       return amounts
     }
 
-    function effectiveMomentToAmounts(effectiveMoments) {
+    function effectiveMomentToAmounts (effectiveMoments) {
       return Object.keys(effectiveMoments).map(
         (k) => effectiveMoments[k].amount
       )
     }
 
-    function getFirstDate() {
+    function getFirstDate () {
       let firstDate = minAndMaxDates[0].date
 
       firstDate = firstDate.getTime()
@@ -186,11 +186,11 @@ export const SumChart = () => {
       return firstDate
     }
 
-    function getDatasetData(data) {
+    function getDatasetData (data) {
       if (data) {
         data = data.map((d) => ({
           x: d.createdAt,
-          y: d.amount,
+          y: d.amount
         }))
 
         return data
@@ -199,18 +199,18 @@ export const SumChart = () => {
       }
     }
 
-    function getDataSet(data) {
+    function getDataSet (data) {
       const dataSet = {
         label: 'Somme de tous les comptes',
-        data,
+        data
       }
 
       return dataSet
     }
 
-    function getChartData(dataSet) {
+    function getChartData (dataSet) {
       const chartData = {
-        datasets: [dataSet],
+        datasets: [dataSet]
       }
 
       return chartData

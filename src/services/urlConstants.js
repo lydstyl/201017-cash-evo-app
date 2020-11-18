@@ -13,5 +13,5 @@ if (process.env.REACT_APP_ENV === 'production') {
 export const UrlConstants = {
   scheme,
   authority,
-  pathBegin,
+  pathBegin
 }

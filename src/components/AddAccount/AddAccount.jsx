@@ -9,7 +9,7 @@ import './AddAccount.css'
 export const AddAccount = () => {
   const appContext = useContext(AppContext)
 
-  const [name, setName] = useState(``)
+  const [name, setName] = useState('')
 
   const [amount, setAmount] = useState(100)
 
@@ -27,7 +27,7 @@ export const AddAccount = () => {
     try {
       const defaultAccount = {
         name,
-        amount,
+        amount
       }
 
       const response = await postAccount(defaultAccount)
@@ -43,7 +43,7 @@ export const AddAccount = () => {
 
       appContext.appDispatch({
         type: actionTypes.POST_ACCOUNT,
-        payload: newAccount,
+        payload: newAccount
       })
     } catch (error) {
       console.log('handleClick -> error', error)

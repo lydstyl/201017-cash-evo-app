@@ -3,7 +3,7 @@ import { UrlConstants } from './urlConstants'
 const { scheme, authority, pathBegin } = UrlConstants
 
 export const getAllAccounts = () => {
-  const pathEnd = `/accounts`
+  const pathEnd = '/accounts'
 
   return new Promise(async (resolve, reject) => {
     try {
@@ -23,7 +23,7 @@ export const getAllAccounts = () => {
 }
 
 export const postAccount = (data) => {
-  const pathEnd = `/accounts`
+  const pathEnd = '/accounts'
 
   const body = data
 
@@ -35,10 +35,10 @@ export const postAccount = (data) => {
         {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
 
-          body: JSON.stringify(body), // body data type must match "Content-Type" header
+          body: JSON.stringify(body) // body data type must match "Content-Type" header
         }
       )
 
@@ -62,7 +62,7 @@ export const deleteAccount = (accountId) => {
         `${scheme}://${authority}${pathBegin}${pathEnd}`,
 
         {
-          method: 'DELETE',
+          method: 'DELETE'
         }
       )
 
@@ -88,10 +88,10 @@ export const putAccount = (accountId, account) => {
         {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
 
-          body: JSON.stringify(account),
+          body: JSON.stringify(account)
         }
       )
 

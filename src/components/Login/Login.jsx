@@ -27,7 +27,7 @@ export const Login = () => {
       // send email and password to back end
       const response = await postLogin({
         email,
-        password,
+        password
       })
 
       if (response.success) {

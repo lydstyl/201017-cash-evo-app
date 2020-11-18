@@ -5,7 +5,7 @@ export const initialState = {
   accounts: [],
   total: 0,
   loading: false,
-  isLogin: false,
+  isLogin: false
 }
 
 export const reducer = (state, action) => {
@@ -37,6 +37,7 @@ export const reducer = (state, action) => {
       return newState
 
     case actionTypes.POST_ACCOUNT:
+    {
       const account = action.payload
       account.amount = 0
 
@@ -45,6 +46,7 @@ export const reducer = (state, action) => {
       newState.loading = false
 
       return newState
+    }
 
     case actionTypes.PUT_ACCOUNT:
       newState.accounts = newState.accounts.map((a) => {
@@ -73,6 +75,7 @@ export const reducer = (state, action) => {
       return newState
 
     case actionTypes.SET_TOTAL:
+    {
       const accounts = action.payload
 
       newState.total = calculateTotal(accounts)
@@ -80,6 +83,7 @@ export const reducer = (state, action) => {
       newState.loading = false
 
       return newState
+    }
 
     default:
       return state

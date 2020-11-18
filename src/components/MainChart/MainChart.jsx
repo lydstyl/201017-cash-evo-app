@@ -10,7 +10,7 @@ export const MainChart = () => {
   const [data, setData] = useState({})
 
   let {
-    appState: { accounts },
+    appState: { accounts }
   } = appContext
 
   useEffect(() => {
@@ -20,20 +20,20 @@ export const MainChart = () => {
 
     setData({ datasets })
 
-    function mapDataForChart() {
+    function mapDataForChart () {
       // eslint-disable-next-line
       accounts = accounts.map((a) => {
         return {
           name: a.name,
           moments: a.moments.map((m) => ({
             amount: m.amount,
-            createdAt: formatDate(m.createdAt),
-          })),
+            createdAt: formatDate(m.createdAt)
+          }))
         }
       })
     }
 
-    function createDatasets() {
+    function createDatasets () {
       const datasets = []
 
       accounts.forEach((a) => {
@@ -41,7 +41,7 @@ export const MainChart = () => {
           label: a.name,
           data: a.moments.map((m) => ({ x: m.createdAt, y: m.amount })),
           fill: false,
-          borderColor: '#00F',
+          borderColor: '#00F'
         })
       })
 

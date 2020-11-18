@@ -14,7 +14,7 @@ export const AccountCard = ({ account }) => {
 
   const initialAttrs = {
     name: account.name,
-    amount: +account.amount || 0,
+    amount: +account.amount || 0
   }
 
   const [accountAttrs, setAccountAttrs] = useState(initialAttrs)
@@ -33,7 +33,7 @@ export const AccountCard = ({ account }) => {
 
         appDispatch({
           type: actionTypes.DELETE_ACCOUNT,
-          payload: account.id,
+          payload: account.id
         })
       } catch (error) {
         console.log('handleDelete -> error', error)
@@ -66,14 +66,14 @@ export const AccountCard = ({ account }) => {
       const amount = accountAttrs.amount
 
       await postMoments(account.id, {
-        amount,
+        amount
       })
 
       newAccount.amount = amount
 
       appDispatch({
         type: actionTypes.PUT_ACCOUNT,
-        payload: newAccount,
+        payload: newAccount
       })
     } catch (error) {
       console.log('handleChange -> error', error)
@@ -103,14 +103,14 @@ export const AccountCard = ({ account }) => {
         />
       </div>
 
-      <div className='body'></div>
+      <div className='body' />
 
       <div className='footer'>
         <Link to={`/account/${account.id}/${account.name}`}>Détail</Link>
 
         {(initialName !== accountAttrs.name ||
           initialAmount !== accountAttrs.amount) && (
-          <button onClick={handleSave}>Sauver</button>
+            <button onClick={handleSave}>Sauver</button>
         )}
 
         <button onClick={handleDelete}>Supprimer</button>

@@ -12,7 +12,7 @@ import { MainChart } from '../MainChart/MainChart'
 
 import './App.css'
 
-function App() {
+function App () {
   return (
     <AppContextProvider>
       <Router>

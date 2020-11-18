@@ -21,10 +21,10 @@ export const AccountDetail = () => {
         data: [],
 
         fill: false,
-        borderColor: 'black',
+        borderColor: 'black'
         // backgroundColor: 'rgba(255,255,255,0',
-      },
-    ],
+      }
+    ]
   }
 
   const mapMoments = () => {
@@ -35,7 +35,7 @@ export const AccountDetail = () => {
 
         createdAtFr: formatDate(m.createdAt),
 
-        timestampInSeconds: Math.floor(new Date(m.createdAt) / 1000),
+        timestampInSeconds: Math.floor(new Date(m.createdAt) / 1000)
       }
     })
   }

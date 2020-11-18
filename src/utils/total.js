@@ -1,5 +1,5 @@
 export const calculateTotal = (accounts) => {
-  let total = accounts.reduce((accumulator, currentValue) => {
+  const total = accounts.reduce((accumulator, currentValue) => {
     const amount = +currentValue.amount
 
     return accumulator + amount
