@@ -4,6 +4,8 @@ import * as actionTypes from '../App/actionTypes'
 
 import { postLogin } from '../../services/user'
 
+import './Login.css'
+
 export const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -28,6 +30,7 @@ export const Login = () => {
       const response = await postLogin({
         email,
         password
+
       })
 
       if (response.success) {
@@ -41,17 +44,20 @@ export const Login = () => {
   }
 
   return (
-    <div>
+    <div className='login'>
       <h1>Login</h1>
 
-      <input value={email} onChange={handleChange} type='email' name='email' />
+      <div className='inputs'>
 
-      <input
-        value={password}
-        onChange={handleChange}
-        type='password'
-        name='password'
-      />
+        <input value={email} onChange={handleChange} type='email' name='email' />
+
+        <input
+          value={password}
+          onChange={handleChange}
+          type='password'
+          name='password'
+        />
+      </div>
 
       <button onClick={handleClick}>Login</button>
     </div>
