@@ -3,7 +3,7 @@ import { UrlConstants } from './urlConstants'
 const { scheme, authority, pathBegin } = UrlConstants
 
 export const getAllUsers = () => {
-  const pathEnd = `/users`
+  const pathEnd = '/users'
 
   return new Promise(async (resolve, reject) => {
     try {
@@ -23,7 +23,7 @@ export const getAllUsers = () => {
 }
 
 export const postLogin = (data) => {
-  const pathEnd = `/login`
+  const pathEnd = '/login'
 
   const body = data
 
@@ -35,10 +35,10 @@ export const postLogin = (data) => {
         {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
 
-          body: JSON.stringify(body),
+          body: JSON.stringify(body)
         }
       )
 
