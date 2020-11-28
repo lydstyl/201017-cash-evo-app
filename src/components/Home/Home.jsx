@@ -14,24 +14,26 @@ export const Home = () => {
 
   return (
     <div className='home'>
-      {appState.loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <AddAccount />
+      {appState.loading
+        ? (
+          <Spinner />
+          )
+        : (
+          <>
+            <AddAccount />
 
-          {appState.accounts.length > 0 && (
-            <>
-              <h2>Total : {appState.total}</h2>
-              <div className='accounts'>
-                {appState.accounts.map(r => (
-                  <AccountCard key={r.id} account={r} />
-                ))}
-              </div>
-            </>
+            {appState.accounts.length > 0 && (
+              <>
+                <h2>Total : {appState.total}</h2>
+                <div className='accounts'>
+                  {appState.accounts.map(r => (
+                    <AccountCard key={r.id} account={r} />
+                  ))}
+                </div>
+              </>
+            )}
+          </>
           )}
-        </>
-      )}
     </div>
   )
 }

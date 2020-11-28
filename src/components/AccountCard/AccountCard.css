@@ -1,6 +1,16 @@
-.account-card {
-  padding: 10px;
+.head {
+  display: flex;
+  flex-direction: column;
+}
 
+.title {
+  margin: 0;
+  margin-bottom: 10px;
+  background-color: var(--primary);
+  border-top: 4px solid var(--dark);
+}
+
+.account-card {
   background-color: var(--light);
 }
 
@@ -9,21 +19,30 @@
   margin: 10px auto;
   font-size: 1.5rem;
   border: none;
-  text-align: right;
+  text-align: center;
 }
 
 .account-card input:first-child {
-  text-align: center;
+  width: 100%;
   background-color: var(--primary);
-  border-top: 4px solid var(--dark);
 }
 
-.account-card input.account-name {
-  width: 106%;
-  margin-top: -10px;
-  margin-left: -9px;
-}
 
 .footer a, button {
   width: 120px
+}
+
+@media screen and (min-width: 375px) {
+  .account-card {
+    padding: 10px;
+  }
+
+  .title {
+    margin: -10px;
+    margin-bottom: 10px;
+  }
+
+  .account-card input:first-child {
+    width: auto;
+  }
 }

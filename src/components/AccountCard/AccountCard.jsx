@@ -85,13 +85,16 @@ export const AccountCard = ({ account }) => {
   return (
     <div className='account-card'>
       <div className='head'>
-        <input
-          value={accountAttrs.name}
-          onChange={handleChange}
-          name='name'
-          className='account-name'
-          type='text'
-        />
+        <div className='title'>
+          <input
+            value={accountAttrs.name}
+            onChange={handleChange}
+            name='name'
+            className='account-name'
+            type='text'
+          />
+
+        </div>
 
         <input
           value={accountAttrs.amount}
