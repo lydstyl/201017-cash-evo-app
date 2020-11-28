@@ -17,3 +17,13 @@
   background-color: var(--primary);
   border-top: 4px solid var(--dark);
 }
+
+.account-card input.account-name {
+  width: 106%;
+  margin-top: -10px;
+  margin-left: -9px;
+}
+
+.footer a, button {
+  width: 120px
+}
