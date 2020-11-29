@@ -8,6 +8,7 @@ import './AddAccount.css'
 
 export const AddAccount = () => {
   const appContext = useContext(AppContext)
+  const { appDispatch } = appContext
 
   const [name, setName] = useState('')
 
@@ -25,6 +26,8 @@ export const AddAccount = () => {
 
   const handleClick = async () => {
     try {
+      appDispatch({ type: actionTypes.SET_LOADING, payload: true })
+
       const defaultAccount = {
         name,
         amount
@@ -38,14 +41,15 @@ export const AddAccount = () => {
         newAccount.moments = []
       }
 
-      // Clear input
-      setName('')
+      setName('') // Clear input
 
-      appContext.appDispatch({
+      appDispatch({
         type: actionTypes.POST_ACCOUNT,
         payload: newAccount
       })
     } catch (error) {
+      appDispatch({ type: actionTypes.SET_LOADING, payload: false })
+
       console.log('handleClick -> error', error)
     }
   }
@@ -69,19 +73,6 @@ export const AddAccount = () => {
           </button>
         )}
       </div>
-
-      {/* <div className='field'>
-        <label htmlFor='amount'>Montant</label>
-
-        <input
-          onChange={handleChange}
-          value={amount}
-          name='amount'
-          type='number'
-          placeholder='100'
-          step='0.01'
-        />
-      </div> */}
     </div>
   )
 }
