@@ -44,6 +44,9 @@ export const postLogin = (data) => {
 
       const data = await response.json()
 
+      // save jwtToken to local storage
+      localStorage.setItem('jwtToken', `Bearer ${data.token}`)
+
       resolve(data)
     } catch (error) {
       console.log('getAllAccounts -> error', error)
