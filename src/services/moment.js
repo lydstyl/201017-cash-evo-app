@@ -33,7 +33,8 @@ export const postMoments = (accountId, body) => {
           method: 'POST',
 
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('jwtToken')
           },
 
           body: JSON.stringify(body)

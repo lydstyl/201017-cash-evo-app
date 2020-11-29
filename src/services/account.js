@@ -94,7 +94,8 @@ export const putAccount = (accountId, account) => {
         {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('jwtToken')
           },
 
           body: JSON.stringify(account)
