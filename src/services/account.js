@@ -41,7 +41,8 @@ export const postAccount = (data) => {
         {
           method: 'POST', // *GET, POST, PUT, DELETE, etc.
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('jwtToken')
           },
 
           body: JSON.stringify(body) // body data type must match "Content-Type" header
@@ -68,7 +69,10 @@ export const deleteAccount = (accountId) => {
         `${scheme}://${authority}${pathBegin}${pathEnd}`,
 
         {
-          method: 'DELETE'
+          method: 'DELETE',
+          headers: {
+            Authorization: localStorage.getItem('jwtToken')
+          }
         }
       )
 

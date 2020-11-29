@@ -8,7 +8,12 @@ export const getMoments = (accountId) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await fetch(
-        `${scheme}://${authority}${pathBegin}${pathEnd}`
+        `${scheme}://${authority}${pathBegin}${pathEnd}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem('jwtToken')
+          }
+        }
       )
 
       const data = await response.json()
