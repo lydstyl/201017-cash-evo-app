@@ -33,15 +33,24 @@
 }
 
 .account-card .footer {
-  display: none;
-}
-
-.account-card:hover .footer {
   display: flex;
 }
 
-.account-card .footer a, .account-card .footer button {
-  width: 120px
+.account-card .footer button, .account-card .footer a {
+  display: block;
+  width: 100px;
+  height: 0;
+  font-size: 0;
+  margin: 0 auto;
+  padding: 0;
+  transition: 0.5s;
+}
+
+.account-card:hover .footer button, .account-card:hover .footer a {
+  height: 36px;
+  font-size: 1rem;  
+  margin: 10px auto;
+  padding: 10px;
 }
 
 @media screen and (min-width: 375px) {
