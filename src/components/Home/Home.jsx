@@ -24,7 +24,8 @@ export const Home = () => {
 
             {appState.accounts.length > 0 && (
               <>
-                <h2>Total : {appState.total}</h2>
+                <h2>Total : {new Intl.NumberFormat('fr-FR').format(appState.total)}</h2>
+
                 <div className='accounts'>
                   {appState.accounts.map(r => (
                     <AccountCard key={r.id} account={r} />

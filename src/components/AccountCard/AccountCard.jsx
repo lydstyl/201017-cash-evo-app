@@ -98,6 +98,7 @@ export const AccountCard = ({ account }) => {
 
         <input
           value={accountAttrs.amount}
+          // value={new Intl.NumberFormat('fr-FR').format(accountAttrs.amount)}
           onChange={handleChange}
           name='amount'
           className='account-amount'
