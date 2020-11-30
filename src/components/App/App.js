@@ -17,6 +17,7 @@ function App () {
     <AppContextProvider>
       <Router>
         <Nav />
+
         <Switch>
           <Route path='/login' component={Login} />
 
