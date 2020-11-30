@@ -1,11 +1,17 @@
-.inputs input{
+.inputs label {
+    margin-left: 20px;
+}
+
+.inputs input {
     display: block;
     margin: 20px auto;
 }
 
-@media screen and (min-width: 375px) {
+@media screen and (min-width: 768px) {
     .inputs {
         display: flex;
         justify-content: space-around;
+        max-width: 600px;
+        margin: auto;
     }
 }

@@ -12,7 +12,7 @@ export const Login = () => {
 
   const appContext = useContext(AppContext)
 
-  const { appDispatch } = appContext
+  const { appState, appDispatch } = appContext
 
   const handleChange = (evt) => {
     if (evt.target.name === 'email') {
@@ -30,7 +30,6 @@ export const Login = () => {
       const response = await postLogin({
         email,
         password
-
       })
 
       if (response.success) {
@@ -44,22 +43,26 @@ export const Login = () => {
   }
 
   return (
-    <div className='login'>
-      <h1>Login</h1>
+    <>
+      {!appState.isLogin &&
 
-      <div className='inputs'>
+        <div className='login'>
+          <div className='inputs'>
 
-        <input value={email} onChange={handleChange} type='email' name='email' />
+            <label htmlFor='email'>Email</label>
+            <input value={email} onChange={handleChange} type='email' name='email' />
 
-        <input
-          value={password}
-          onChange={handleChange}
-          type='password'
-          name='password'
-        />
-      </div>
+            <label htmlFor='password'>Mot de passe</label>
+            <input
+              value={password}
+              onChange={handleChange}
+              type='password'
+              name='password'
+            />
+          </div>
 
-      <button onClick={handleClick}>Login</button>
-    </div>
+          <button onClick={handleClick}>Login</button>
+        </div>}
+    </>
   )
 }
