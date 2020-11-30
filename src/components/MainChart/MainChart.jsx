@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { AppContext } from '../AppContextProvider/AppContextProvider'
 import { Line } from 'react-chartjs-2'
 import { formatDate, options } from '../../utils/chartsOptions'
+import { DoughnutChart } from '../DoughnutChart/DoughnutChart'
 
 function getRandomColor () {
   const letters = '0123456789ABCDEF'
@@ -61,6 +62,8 @@ export const MainChart = () => {
   return (
     <div>
       <Line data={data} options={options} />
+
+      <DoughnutChart data={data} />
     </div>
   )
 }
