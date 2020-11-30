@@ -10,6 +10,11 @@
   border-top: 4px solid var(--dark);
 }
 
+.account-card:hover .title, .account-card:hover .title input {
+  background-color: var(--light);
+
+}
+
 .account-card {
   background-color: var(--light);
 }
@@ -27,8 +32,15 @@
   background-color: var(--primary);
 }
 
+.account-card .footer {
+  display: none;
+}
 
-.footer a, button {
+.account-card:hover .footer {
+  display: flex;
+}
+
+.account-card .footer a, .account-card .footer button {
   width: 120px
 }
 
