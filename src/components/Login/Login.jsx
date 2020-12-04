@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { AppContext } from '../AppContextProvider/AppContextProvider'
 import * as actionTypes from '../App/actionTypes'
 
-import { postLogin } from '../../services/user'
+import { postLogin, postSignUp } from '../../services/user'
 
 import './Login.css'
 
@@ -22,23 +22,43 @@ export const Login = () => {
     }
   }
 
-  const handleClick = async () => {
-    try {
-      appDispatch({ type: actionTypes.SET_LOADING, payload: true })
+  const handleClick = async (param) => {
+    appDispatch({ type: actionTypes.SET_LOADING, payload: true })
 
-      // send email and password to back end
-      const response = await postLogin({
-        email,
-        password
-      })
+    if (param === 'create-account') {
+      console.log('create-account')
+      // sign-up
 
-      if (response.success) {
-        appDispatch({ type: actionTypes.SET_IS_LOGIN, payload: true })
+      try {
+        const response = await postSignUp({
+          email,
+          password
+        })
+
+        if (response.success) {
+          appDispatch({ type: actionTypes.SET_IS_LOGIN, payload: true })
+        }
+      } catch (error) {
+        console.log('🚀 ~ file: Login.jsx ~ line 42 ~ handleClick ~ error', error)
+
+        appDispatch({ type: actionTypes.SET_LOADING, payload: false })
       }
-    } catch (error) {
-      console.log('App -> error', error)
+    } else {
+      try {
+        // send email and password to back end
+        const response = await postLogin({
+          email,
+          password
+        })
 
-      appDispatch({ type: actionTypes.SET_LOADING, payload: false })
+        if (response.success) {
+          appDispatch({ type: actionTypes.SET_IS_LOGIN, payload: true })
+        }
+      } catch (error) {
+        console.log('App -> error', error)
+
+        appDispatch({ type: actionTypes.SET_LOADING, payload: false })
+      }
     }
   }
 
@@ -62,6 +82,8 @@ export const Login = () => {
           </div>
 
           <button onClick={handleClick}>Login</button>
+
+          <button onClick={_ => handleClick('create-account')}>ou créer un compte</button>
         </div>}
     </>
   )

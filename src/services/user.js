@@ -55,3 +55,7 @@ export const postLogin = (data) => {
     }
   })
 }
+
+export const postSignUp = data => {
+  console.log('🚀 ~ file: user.js ~ line 60 ~ postSignUp', postSignUp)
+}
