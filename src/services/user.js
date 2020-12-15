@@ -57,5 +57,31 @@ export const postLogin = (data) => {
 }
 
 export const postSignUp = data => {
-  console.log('🚀 ~ file: user.js ~ line 60 ~ postSignUp', postSignUp)
+  const pathEnd = '/users'
+
+  const body = data
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(`${scheme}://${authority}${pathBegin}${pathEnd}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+
+          body: JSON.stringify(body)
+        }
+      )
+
+      const data = await response.json()
+
+      localStorage.setItem('jwtToken', `Bearer ${data.token}`)
+
+      resolve(data)
+    } catch (error) {
+      console.log('🚀 ~ postSignUp ~ error', error)
+      reject(error)
+    }
+  })
 }

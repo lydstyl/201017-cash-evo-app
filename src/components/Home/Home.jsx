@@ -33,6 +33,12 @@ export const Home = () => {
                 </div>
               </>
             )}
+
+            {appState.accounts.length === 0 && (
+              <>
+                <h2>Vous n'avez pas de compte.</h2>
+              </>
+            )}
           </>
           )}
     </div>

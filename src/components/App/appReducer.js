@@ -2,7 +2,7 @@ import * as actionTypes from './actionTypes'
 import { calculateTotal } from '../../utils/total'
 
 export const initialState = {
-  accounts: [],
+  accounts: null,
   total: 0,
   loading: false,
   isLogin: false

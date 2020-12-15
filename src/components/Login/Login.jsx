@@ -26,8 +26,7 @@ export const Login = () => {
     appDispatch({ type: actionTypes.SET_LOADING, payload: true })
 
     if (param === 'create-account') {
-      console.log('create-account')
-      // sign-up
+      // CREATE ACCOUNT
 
       try {
         const response = await postSignUp({
@@ -39,13 +38,13 @@ export const Login = () => {
           appDispatch({ type: actionTypes.SET_IS_LOGIN, payload: true })
         }
       } catch (error) {
-        console.log('🚀 ~ file: Login.jsx ~ line 42 ~ handleClick ~ error', error)
+        console.log('🚀 ~ Login handleClick ~ error', error)
 
         appDispatch({ type: actionTypes.SET_LOADING, payload: false })
       }
     } else {
+      // LOGIN
       try {
-        // send email and password to back end
         const response = await postLogin({
           email,
           password
@@ -53,6 +52,8 @@ export const Login = () => {
 
         if (response.success) {
           appDispatch({ type: actionTypes.SET_IS_LOGIN, payload: true })
+        } else {
+          appDispatch({ type: actionTypes.SET_IS_LOGIN, payload: false })
         }
       } catch (error) {
         console.log('App -> error', error)

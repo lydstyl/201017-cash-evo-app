@@ -21,7 +21,7 @@ export const Nav = () => {
           )
         : (
           <>
-            {appState.accounts.length > 0 && (
+            {appState.accounts && (
               <nav>
                 <ul>
                   <li>
