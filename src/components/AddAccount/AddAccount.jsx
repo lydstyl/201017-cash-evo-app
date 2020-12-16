@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useCallback } from 'react'
 
 import { AppContext } from '../AppContextProvider/AppContextProvider'
 import * as actionTypes from '../App/actionTypes'
@@ -12,9 +12,9 @@ export const AddAccount = () => {
 
   const [name, setName] = useState('')
 
-  const [amount, setAmount] = useState(100)
+  const [amount, setAmount] = useState(0)
 
-  const handleChange = (evt) => {
+  const handleChange = useCallback((evt) => {
     if (evt.target.name === 'name') {
       setName(evt.target.value)
     }
@@ -22,11 +22,11 @@ export const AddAccount = () => {
     if (evt.target.name === 'amount') {
       setAmount(evt.target.value)
     }
-  }
+  }, [])
 
-  const handleClick = async () => {
+  const handleClick = useCallback(async () => {
     try {
-      appDispatch({ type: actionTypes.SET_LOADING, payload: true })
+      appDispatch({ type: actionTypes.SET_LOADING, payload: true }) // comment this line fix the bug but we can't
 
       const defaultAccount = {
         name,
@@ -52,7 +52,7 @@ export const AddAccount = () => {
 
       console.log('handleClick -> error', error)
     }
-  }
+  }, [name])
 
   return (
     <div className='post-account'>

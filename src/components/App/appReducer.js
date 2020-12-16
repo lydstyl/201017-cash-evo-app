@@ -1,6 +1,19 @@
 import * as actionTypes from './actionTypes'
 import { calculateTotal } from '../../utils/total'
 
+function contains (array, objectId) {
+  let found = false
+
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].id === objectId) {
+      found = true
+      break
+    }
+  }
+
+  return found
+}
+
 export const initialState = {
   accounts: null,
   total: 0,
@@ -41,7 +54,15 @@ export const reducer = (state, action) => {
       const account = action.payload
       account.amount = 0
 
-      newState.accounts.push(account)
+      if (!newState.accounts) {
+        newState.accounts = []
+      }
+
+      const isInState = contains(newState.accounts, account.id)
+
+      if (!isInState) {
+        newState.accounts.push(account)
+      }
 
       newState.loading = false
 
