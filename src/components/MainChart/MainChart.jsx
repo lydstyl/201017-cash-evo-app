@@ -3,6 +3,15 @@ import { AppContext } from "../AppContextProvider/AppContextProvider"
 import { Line } from "react-chartjs-2"
 import { formatDate } from "../../utils/chartsOptions"
 
+const options = {
+    responsive: true,
+    plugins: {
+        legend: {
+            position: "top", // as const,
+        },
+    },
+}
+
 function getRandomColor() {
     const letters = "0123456789ABCDEF"
     let color = "#"
@@ -10,6 +19,79 @@ function getRandomColor() {
         color += letters[Math.floor(Math.random() * 16)]
     }
     return color
+}
+
+function getAllSortedMoments(accounts) {
+    const allMoments = []
+    accounts.forEach(account => {
+        account.moments.forEach(moment => {
+            allMoments.push({
+                accountId: account.id,
+                accountName: account.name,
+                xDate: moment.createdAt,
+                yAmount: moment.amount,
+            })
+        })
+    })
+    allMoments.sort((a, b) => {
+        if (a.xDate > b.xDate) {
+            return 1
+        }
+        return -1
+    })
+
+    return allMoments
+}
+
+function getXDates(sortedMoments) {
+    return sortedMoments.map(moment => formatDate(moment.xDate))
+}
+
+function getSets(sortedMoments, accountsIds) {
+    const sets = []
+    accountsIds.forEach(id => {
+        const set = {
+            label: id,
+            data: [],
+            borderColor: getRandomColor(),
+        }
+
+        sortedMoments.forEach(moment => {
+            if (moment.accountId === id) {
+                if (typeof set.label === "number") {
+                    set.label = moment.accountName // change id to name
+                }
+
+                set.data.push(moment.yAmount)
+            } else {
+                set.data.push(null)
+            }
+        })
+
+        sets.push(set)
+    })
+
+    return sets
+}
+
+function getAccountsIds(sortedMoments) {
+    const ids = []
+    sortedMoments.forEach(moment => {
+        if (!ids.includes(moment.accountId)) {
+            ids.push(moment.accountId)
+        }
+    })
+    return ids
+}
+
+function createData(xDates, sets, options) {
+    const data = {
+        labels: xDates,
+        datasets: sets,
+        options,
+    }
+
+    return data
 }
 
 export const MainChart = () => {
@@ -22,60 +104,15 @@ export const MainChart = () => {
     } = appContext
 
     useEffect(() => {
-        mapDataForChart()
+        const sortedMoments = getAllSortedMoments(accounts)
+        const xDates = getXDates(sortedMoments)
+        const accountsIds = getAccountsIds(sortedMoments)
+        const sets = getSets(sortedMoments, accountsIds)
 
-        const data = createData()
+        const data = createData(xDates, sets, options)
 
         setData(data)
-
-        function mapDataForChart() {
-            // eslint-disable-next-line
-            accounts = accounts.map(a => {
-                return {
-                    name: a.name,
-                    moments: a.moments.map(m => ({
-                        amount: m.amount,
-                        createdAt: formatDate(m.createdAt),
-                    })),
-                }
-            })
-        }
-
-        function createData() {
-            const labels = []
-            const datasets = []
-
-            accounts.forEach(account => {
-                const xData = account.moments.map(moment => moment.createdAt)
-                labels.push(...xData)
-
-                const yData = account.moments.map(moment => moment.amount)
-
-                datasets.push({
-                    label: account.name,
-                    data: yData,
-
-                    borderColor: getRandomColor(),
-                })
-            })
-
-            const data = {
-                labels,
-                datasets,
-            }
-
-            return data
-        }
     }, [accounts])
-
-    const options = {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: "top", // as const,
-            },
-        },
-    }
 
     if (!data) {
         return <>Loading...</>
