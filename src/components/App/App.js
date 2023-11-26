@@ -53,15 +53,6 @@ function App() {
                         }
                     />
                 </Routes>
-
-                {/* <Route
-                        path="/account/:id/:name" // protected path
-                        element={
-                            <RequireAuth redirectTo="/login">
-                                <AccountDetail />
-                            </RequireAuth>
-                        }
-                    /> */}
             </Router>
         </AppContextProvider>
     )

@@ -1,9 +1,7 @@
 import React, { useContext, useState, useEffect } from "react"
-
 import { AppContext } from "../AppContextProvider/AppContextProvider"
 import { Line } from "react-chartjs-2"
-import { formatDate, options } from "../../utils/chartsOptions"
-import { DoughnutChart } from "../DoughnutChart/DoughnutChart"
+import { formatDate } from "../../utils/chartsOptions"
 
 function getRandomColor() {
     const letters = "0123456789ABCDEF"
@@ -17,7 +15,7 @@ function getRandomColor() {
 export const MainChart = () => {
     const appContext = useContext(AppContext)
 
-    const [data, setData] = useState({})
+    const [data, setData] = useState(null)
 
     let {
         appState: { accounts },
@@ -26,9 +24,9 @@ export const MainChart = () => {
     useEffect(() => {
         mapDataForChart()
 
-        const datasets = createDatasets()
+        const data = createData()
 
-        setData({ datasets })
+        setData(data)
 
         function mapDataForChart() {
             // eslint-disable-next-line
@@ -43,28 +41,49 @@ export const MainChart = () => {
             })
         }
 
-        function createDatasets() {
+        function createData() {
+            const labels = []
             const datasets = []
 
-            accounts.forEach(a => {
+            accounts.forEach(account => {
+                const xData = account.moments.map(moment => moment.createdAt)
+                labels.push(...xData)
+
+                const yData = account.moments.map(moment => moment.amount)
+
                 datasets.push({
-                    label: a.name,
-                    data: a.moments.map(m => ({ x: m.createdAt, y: m.amount })),
-                    fill: false,
+                    label: account.name,
+                    data: yData,
+
                     borderColor: getRandomColor(),
                 })
             })
 
-            return datasets
+            const data = {
+                labels,
+                datasets,
+            }
+
+            return data
         }
     }, [accounts])
 
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top", // as const,
+            },
+        },
+    }
+
+    if (!data) {
+        return <>Loading...</>
+    }
+
     return (
         <div>
-            {/* <Line data={data} options={options} />
-
-      <DoughnutChart data={data} /> */}
-            opoo
+            <Line data={data} options={options} />
         </div>
     )
 }
