@@ -37,18 +37,18 @@ function App() {
                         }
                     />
                     <Route
-                        path="/comparison-graph"
-                        element={
-                            <RequireAuth redirectTo="/login">
-                                <MainChart />
-                            </RequireAuth>
-                        }
-                    />
-                    <Route
                         path="/sum-chart"
                         element={
                             <RequireAuth redirectTo="/login">
                                 <SumChart />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path="/comparison-graph"
+                        element={
+                            <RequireAuth redirectTo="/login">
+                                <MainChart />
                             </RequireAuth>
                         }
                     />

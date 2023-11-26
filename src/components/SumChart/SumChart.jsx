@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect } from "react"
-
 import { AppContext } from "../AppContextProvider/AppContextProvider"
 import { Line } from "react-chartjs-2"
-import { formatDate, options } from "../../utils/chartsOptions"
+import { formatDate } from "../../utils/chartsOptions"
 
 export const SumChart = () => {
     const appContext = useContext(AppContext)
 
-    const [data, setData] = useState({})
+    const [data, setData] = useState(null)
 
     const {
         appState: { accounts },
@@ -19,7 +18,6 @@ export const SumChart = () => {
         const minAndMaxDates = getMinAndMaxDates(allMoments)
 
         const globalMoments = getGlobalMoments(minAndMaxDates)
-
         const datasetData = getDatasetData(globalMoments)
 
         const dataSet = getDataSet(datasetData)
@@ -210,20 +208,41 @@ export const SumChart = () => {
         }
 
         function getChartData(dataSet) {
+            const xData = dataSet.data.map(point => point.x)
+            const yData = dataSet.data.map(point => point.y)
+
             const chartData = {
-                datasets: [dataSet],
+                labels: xData,
+                datasets: [
+                    {
+                        label: dataSet.label,
+                        data: yData,
+                        borderColor: "rgb(255, 99, 132)",
+                        backgroundColor: "rgba(255, 99, 132, 0.5)",
+                    },
+                ],
             }
 
             return chartData
         }
     }, [accounts])
 
-    console.log(data, JSON.stringify(data, null, 4), options)
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top",
+            },
+        },
+    }
+
+    if (!data) {
+        return <>Loading...</>
+    }
 
     return (
         <div>
-            {/* <Line data={data} options={options} /> */}
-            xxx
+            <Line data={data} options={options} />
         </div>
     )
 }

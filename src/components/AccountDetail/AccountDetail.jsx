@@ -48,15 +48,15 @@ export const AccountDetail = () => {
         },
     }
 
-    const XData = account.moments.map(moment => formatDate(moment.createdAt))
-    const YData = account.moments.map(moment => moment.amount)
+    const xData = account.moments.map(moment => formatDate(moment.createdAt))
+    const yData = account.moments.map(moment => moment.amount)
 
     const data = {
-        labels: XData,
+        labels: xData,
         datasets: [
             {
                 label: "Dataset 1",
-                data: YData,
+                data: yData,
                 borderColor: "rgb(255, 99, 132)",
                 backgroundColor: "rgba(255, 99, 132, 0.5)",
             },
