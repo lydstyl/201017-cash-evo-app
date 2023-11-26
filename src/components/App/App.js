@@ -9,6 +9,7 @@ import { Home } from "../Home/Home"
 import { AccountDetail } from "../AccountDetail/AccountDetail"
 import { SumChart } from "../SumChart/SumChart"
 import { MainChart } from "../MainChart/MainChart"
+import { DoughnutPage } from "../Doughnut/Doughnut"
 
 import "./App.css"
 
@@ -49,6 +50,14 @@ function App() {
                         element={
                             <RequireAuth redirectTo="/login">
                                 <MainChart />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path="/doughnut"
+                        element={
+                            <RequireAuth redirectTo="/login">
+                                <DoughnutPage />
                             </RequireAuth>
                         }
                     />
