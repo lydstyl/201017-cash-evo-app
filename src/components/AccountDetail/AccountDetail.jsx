@@ -1,9 +1,28 @@
 import React, { useContext } from "react"
 import { useParams } from "react-router-dom"
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from "chart.js"
 import { Line } from "react-chartjs-2"
-
 import { AppContext } from "../AppContextProvider/AppContextProvider"
-import { formatDate, options } from "../../utils/chartsOptions"
+import { formatDate } from "../../utils/chartsOptions"
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+)
 
 export const AccountDetail = () => {
     const appContext = useContext(AppContext)
@@ -12,54 +31,42 @@ export const AccountDetail = () => {
 
     const account = appContext.appState.accounts.find(a => +a.id === +id)
 
-    const data = {}
+    if (!account) {
+        return <>Loading...</>
+    }
 
-    const chartData = {
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: "top", // as const,
+            },
+            // title: {
+            //     display: true,
+            //     text: "Chart.js Line Chart",
+            // },
+        },
+    }
+
+    const XData = account.moments.map(moment => formatDate(moment.createdAt))
+    const YData = account.moments.map(moment => moment.amount)
+
+    const data = {
+        labels: XData,
         datasets: [
             {
-                label: "Montant",
-                data: [],
-
-                fill: false,
-                borderColor: "black",
-                // backgroundColor: 'rgba(255,255,255,0',
+                label: "Dataset 1",
+                data: YData,
+                borderColor: "rgb(255, 99, 132)",
+                backgroundColor: "rgba(255, 99, 132, 0.5)",
             },
         ],
     }
 
-    const mapMoments = () => {
-        data.moments = account.moments.map(m => {
-            return {
-                amount: +m.amount,
-                createdAt: new Date(m.createdAt),
-
-                createdAtFr: formatDate(m.createdAt),
-
-                timestampInSeconds: Math.floor(new Date(m.createdAt) / 1000),
-            }
-        })
-    }
-
-    const createChartData = () => {
-        data.moments.forEach(m => {
-            chartData.datasets[0].data.push({ x: m.createdAtFr, y: +m.amount })
-        })
-    }
-
-    if (account) {
-        mapMoments()
-
-        createChartData()
-    }
-    console.log(`gb🚀 ~ AccountDetail ~ account:`, account)
-    console.log(`gb🚀 ~ AccountDetail ~ chartData:`, chartData)
-    console.log(`gb🚀 ~ AccountDetail ~ options:`, options)
-
     return (
         <div>
-            {/* {account && <h2>{account.name}</h2>}
-      <Line data={chartData} options={options} /> */}
-            tttt
+            <h2>{account.name}</h2>
+            <Line options={options} data={data} />
         </div>
     )
 }
