@@ -19,20 +19,20 @@ export const getAllAccounts = () => {
 
       const data = await response.json()
 
-      data.data = data.data.sort((accountA, accountB) => {
-        const nameA = accountA.name.toUpperCase() // ignore upper and lowercase
-        const nameB = accountB.name.toUpperCase()
+      // data.data = data.data.sort((accountA, accountB) => {
+      //   const nameA = accountA.name.toUpperCase() // ignore upper and lowercase
+      //   const nameB = accountB.name.toUpperCase()
 
-        if (nameA < nameB) {
-          return -1
-        }
-        if (nameA > nameB) {
-          return 1
-        }
+      //   if (nameA < nameB) {
+      //     return -1
+      //   }
+      //   if (nameA > nameB) {
+      //     return 1
+      //   }
 
-        // names must be equal
-        return 0
-      })
+      //   // names must be equal
+      //   return 0
+      // })
 
       resolve(data)
     } catch (error) {
